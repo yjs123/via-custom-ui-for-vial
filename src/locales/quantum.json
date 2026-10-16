@@ -497,7 +497,43 @@
       "zh": "中文",
       "de": "Deutsch"
     }
-
-    
+  },
+  "layoutLanguageTabs": {
+    "de": {
+      "tabs": {
+        "Keymap": "Tastaturbelegung",
+        "Macro": "Makro",
+        "Lighting": "Beleuchtung",
+        "TapDance": "Tap Dance",
+        "Combos": "Kombinationen",
+        "KeyOverride": "Tastenüberschreibungen",
+        "AltRepeatKey": "Alt-Wiederholungstaste",
+        "Quantum": "QMK-Einstellungen",
+        "MatrixTester": "Matrix-Test",
+        "Custom": "Benutzerdefiniert",
+        "Magic": "Magic",
+        "Grave Escape": "Grave-Escape",
+        "Grave Escape Override": "Grave-Escape-Überschreibung",
+        "Tap-Hold": "Tippen-Halten",
+        "Auto Shift": "Automatische Umschaltung",
+        "Combo": "Kombination",
+        "One Shot Keys": "Einmal-Tasten",
+        "Mouse Keys": "Maustasten"
+      },
+      "keycodeTabs": {
+        "Basic": "Basis",
+        "Mouse": "Maus",
+        "UserWireless": "Benutzer",
+        "Media": "Medien",
+        "Quantum": "Quantum",
+        "RGB": "RGB",
+        "Layer": "Ebene",
+        "Macro": "Makro",
+        "TapDance": "Tap Dance",
+        "Combos": "Kombinationen",
+        "KeyOverride": "Tastenüberschreibungen",
+        "AltRepeatKey": "Alt-Wiederholungstaste"
+      }
+    }
   }
 }

@@ -36,6 +36,8 @@ export function QuantumSettingsEditor(props: {
   const [mouseKeysSupported, setMouseKeysSupported] = useState<boolean | null>(null);
 
   const t = quantumTranslations[props.language ?? "en"];
+  const tabTranslations =
+    quantumTranslations.layoutLanguageTabs[props.keymapLanguage]?.tabs ?? t.tabs;
   const visibleQuantumTabs = QuantumSettingDefinition.filter(
     (quantumTab) => quantumTab.label !== "Mouse Keys" || mouseKeysSupported !== false,
   );
@@ -171,8 +173,7 @@ export function QuantumSettingsEditor(props: {
             key={menu.id}
             className={menu.id === "Keymap" ? "keymap-main-tab" : undefined}
             label={
-              (quantumTranslations[props.language].tabs as Record<string, string>)[menu.id] ??
-              menu.label
+              (tabTranslations as Record<string, string>)[menu.id] ?? menu.label
             }
             sx={{
               color: "#b8c7dc",
@@ -273,8 +274,7 @@ export function QuantumSettingsEditor(props: {
                     key={quantumTab.label}
                     className="quantum-settings-tab"
                     label={
-                      (quantumTranslations[props.language].tabs as Record<string, string>)[quantumTab.label] ??
-                      quantumTab.label
+                      (tabTranslations as Record<string, string>)[quantumTab.label] ?? quantumTab.label
                     }
                     sx={{
                       color: "#b8c7dc",

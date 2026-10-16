@@ -472,7 +472,7 @@ export function AppToolbar(props: AppToolbarProps) {
               </IconButton>
             </Tooltip>
             <LanguageSelector
-              languageList={["US", "zh"]}
+              languageList={["US", "zh", "de"]}
               lang={props.keymapLanguage}
               language={props.language}
               onChange={props.onLanguageChange}

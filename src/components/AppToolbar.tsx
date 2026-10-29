@@ -70,6 +70,8 @@ type AppToolbarProps = {
   batteryLevel: number | null;
   batteryLevels?: [number | null, number | null] | null;
   onRefreshBattery: () => void;
+  reportRate: 1 | 4 | 8 | null;
+  onRefreshReportRate: () => void;
   keymapLanguage: string;
   onLanguageChange: (language: string) => void;
   language?: "zh" | "en";
@@ -113,6 +115,31 @@ export function AppToolbar(props: AppToolbarProps) {
   const batterySummary = splitBatteryLevels
     ? `L ${leftBatteryLevel ?? "--"}% / R ${rightBatteryLevel ?? "--"}%`
     : `${singleBatteryLevel ?? "--"}%`;
+  const reportRateLabel =
+    props.reportRate === null
+      ? ""
+      : t.reportRate.replace("{rate}", String(props.reportRate));
+  const statusPillSx = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 0.75,
+    minWidth: 0,
+    overflow: "hidden",
+    fontSize: "11px",
+    color: "rgba(203, 213, 225, 0.9)",
+    whiteSpace: "nowrap",
+    cursor: "pointer",
+    px: 1,
+    py: 0.45,
+    border: "1px solid rgba(148, 163, 184, 0.28)",
+    borderRadius: 1.5,
+    background: "rgba(30, 41, 59, 0.72)",
+    transition: "border-color 160ms ease, background 160ms ease",
+    "&:hover": {
+      borderColor: "rgba(134, 239, 172, 0.65)",
+      background: "rgba(30, 64, 52, 0.78)",
+    },
+  };
 
   return (
     <Box
@@ -200,36 +227,34 @@ export function AppToolbar(props: AppToolbarProps) {
           </Typography>
         )}
         {!isSlaveDevice && (
-          <Typography
-            className="current-layer-pill"
-            sx={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 0.75,
-              ml: 1,
-              minWidth: 0,
-              overflow: "hidden",
-              fontSize: "11px",
-              color: "rgba(203, 213, 225, 0.9)",
-              whiteSpace: "nowrap",
-              cursor: "pointer",
-              px: 1,
-              py: 0.45,
-              border: "1px solid rgba(148, 163, 184, 0.28)",
-              borderRadius: 1.5,
-              background: "rgba(30, 41, 59, 0.72)",
-              transition: "border-color 160ms ease, background 160ms ease",
-              "&:hover": {
-                borderColor: "rgba(134, 239, 172, 0.65)",
-                background: "rgba(30, 64, 52, 0.78)",
-              },
-            }}
-            onClick={props.onRefreshLayer}
-            title={t.refreshCurrentLayer}
-          >
-            <span style={{ opacity: 0.68 }}>{t.currentLayer}</span>
-            <span style={{ color: "#86efac", fontWeight: 700 }}>L{props.currentLayer ?? "--"}</span>
-          </Typography>
+          <>
+            <Typography
+              className="current-layer-pill"
+              sx={{ ...statusPillSx, ml: 1 }}
+              onClick={props.onRefreshLayer}
+              title={t.refreshCurrentLayer}
+            >
+              <span style={{ opacity: 0.68 }}>{t.currentLayer}</span>
+              <span style={{ color: "#86efac", fontWeight: 700 }}>L{props.currentLayer ?? "--"}</span>
+            </Typography>
+            {props.connected && props.reportRate !== null && (
+              <Tooltip title={reportRateLabel}>
+                <Typography
+                  className="current-layer-pill report-rate-pill"
+                  sx={{
+                    ...statusPillSx,
+                    ml: 0.75,
+                  }}
+                  onClick={props.onRefreshReportRate}
+                  title={reportRateLabel}
+                  aria-label={reportRateLabel}
+                >
+                  <span style={{ opacity: 0.68 }}>{t.reportRateShort}</span>
+                  <span style={{ color: "#86efac", fontWeight: 700 }}>{props.reportRate}K</span>
+                </Typography>
+              </Tooltip>
+            )}
+          </>
         )}
       </Box>
       <Box

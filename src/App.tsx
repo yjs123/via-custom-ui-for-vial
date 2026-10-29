@@ -8,7 +8,7 @@ import {
 import { match, P } from "ts-pattern";
 import { useEffect, useState } from "react";
 import { AppToolbar, KeymapStyle } from "./components/AppToolbar";
-import quantumTranslations from "./locales/quantum.json";
+import { quantumTranslations } from "./locales/translations";
 import {
   discardPendingKeycapAudio,
   prepareKeycapAudio,
@@ -167,7 +167,14 @@ function App() {
             language={uiLanguage}
             onLanguageChange={(selectedLanguage) => {
               setKeymapLanguage(selectedLanguage);
-              setUiLanguage(selectedLanguage === "zh" ? "zh" : "en");
+              setUiLanguage(
+                selectedLanguage === "zh" ||
+                  selectedLanguage === "ja" ||
+                  selectedLanguage === "it" ||
+                  selectedLanguage === "es"
+                  ? selectedLanguage
+                  : "en",
+              );
             }}
             connectedSettingsVisible={connected}
             onDownloadSettings={onVialSaveClick}

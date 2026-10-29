@@ -1,6 +1,6 @@
 import { Box, Grid } from "@mui/material";
 import { Fragment, useEffect, useRef, useState } from "react";
-import quantumTranslations from "../locales/quantum.json";
+import { quantumTranslations, type UiLanguage } from "../locales/translations";
 import { ViaKeyboard } from "../services/vialKeyboad";
 import { DefaultQmkKeycode, KeycodeConverter, QmkKeycode } from "./keycodes/keycodeConverter";
 import { EditableKey } from "./KeymapEditor";
@@ -13,7 +13,7 @@ export function ComboEditor(props: {
   via: ViaKeyboard;
   keycodeConverter: KeycodeConverter;
   comboIndex: number;
-  language?: "zh" | "en";
+  language?: UiLanguage;
 }) {
   const [combo, setCombo] = useState<{ [id: string]: ComboValue }>({});
   const boundaryRef = useRef<HTMLDivElement>(null);
@@ -90,7 +90,7 @@ function ComboEntry(props: {
   combo: ComboValue;
   keycodeconverter: KeycodeConverter;
   boundaryRef?: React.RefObject<HTMLDivElement>;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange?: (combo: ComboValue) => void;
 }) {
   const [candidateCombo, setCandidateCombo] = useState<ComboValue>(props.combo);

@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
-import quantumTranslations from "../locales/quantum.json";
+import { quantumTranslations, type UiLanguage } from "../locales/translations";
 import { ViaKeyboard } from "../services/vialKeyboad";
 import { KeycodeCatalog } from "./KeycodeCatalog";
 import {
@@ -43,8 +43,8 @@ export type { KeymapKeyProperties, KeymapProperties } from "./keymap/keymapTypes
 export function KeymapEditor(props: {
   keymap: KeymapProperties;
   via: ViaKeyboard;
-  language: "zh" | "en";
-  onLanguageChange: (language: "zh" | "en") => void;
+  language: UiLanguage;
+  onLanguageChange: (language: UiLanguage) => void;
   keymapLanguage: string;
   dynamicEntryCount: {
     layer: number;

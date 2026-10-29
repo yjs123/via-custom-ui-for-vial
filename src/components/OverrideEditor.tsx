@@ -1,6 +1,6 @@
 import { Box, Button, Checkbox, FormControlLabel, Grid, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
-import quantumTranslations from "../locales/quantum.json";
+import { quantumTranslations, type UiLanguage } from "../locales/translations";
 import { ViaKeyboard } from "../services/vialKeyboad";
 import { DefaultQmkKeycode, KeycodeConverter, QmkKeycode } from "./keycodes/keycodeConverter";
 import { EditableKey } from "./KeymapEditor";
@@ -33,7 +33,7 @@ export function OverrideEditor(props: {
   via: ViaKeyboard;
   keycodeConverter: KeycodeConverter;
   overrideIndex: number;
-  language?: "zh" | "en";
+  language?: UiLanguage;
 }) {
   const [override, setOverride] = useState<{ [id: string]: OverrideValue }>({});
   const boundaryRef = useRef<HTMLDivElement>(null);
@@ -118,7 +118,7 @@ function OverrideEntry(props: {
   override: OverrideValue;
   keycodeconverter: KeycodeConverter;
   boundaryRef?: React.RefObject<HTMLDivElement>;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange?: (override: OverrideValue) => void;
 }) {
   const [candidateOverride, setCandidateOverride] = useState<OverrideValue>(props.override);

@@ -2,7 +2,7 @@ import { ArrowDownward, ArrowUpward, Delete } from "@mui/icons-material";
 import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { ViaKeyboard } from "../services/vialKeyboad";
-import quantumTranslations from "../locales/quantum.json";
+import { quantumTranslations, type UiLanguage } from "../locales/translations";
 import { DefaultQmkKeycode, KeycodeConverter } from "./keycodes/keycodeConverter";
 import { EditableKey, KeymapKeyPopUp } from "./KeymapEditor";
 
@@ -12,7 +12,7 @@ export function MacroEditor(props: {
   keycodeConverter: KeycodeConverter;
   macroIndex: number;
   macroCount: number;
-  language?: "zh" | "en";
+  language?: UiLanguage;
 }) {
   const [macroData, setMacroData] = useState<{ [id: number]: number[] }>({});
   const boundaryRef = useRef<HTMLDivElement>(null);
@@ -142,7 +142,7 @@ function MacroEntry(props: {
   buffer: number[];
   keycodeConverter: KeycodeConverter;
   boundaryRef?: React.RefObject<HTMLDivElement>;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onSave: (actions: number[][]) => void;
 }) {
   const t = quantumTranslations[props.language ?? "en"];

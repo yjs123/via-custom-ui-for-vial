@@ -1,10 +1,10 @@
 import { FormControl, MenuItem, Select } from "@mui/material";
-import quantumTranslations from "../locales/quantum.json";
+import { quantumTranslations, type UiLanguage } from "../locales/translations";
 
 export function LanguageSelector(props: {
   languageList: string[];
   lang: string;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange: (lang: string) => void;
 }) {
   const languageNames: { [language: string]: string } =

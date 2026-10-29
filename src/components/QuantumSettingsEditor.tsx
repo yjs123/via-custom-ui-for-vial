@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { QuantumSettingDefinition } from "../services/quantumSettings";
 import { ViaKeyboard } from "../services/vialKeyboad";
 import { MenuItemProperties, MenuSectionProperties, ViaMenuItem } from "./ViaMenuItem";
-import quantumTranslations from "../locales/quantum.json";
+import { quantumTranslations, type UiLanguage } from "../locales/translations";
 import { KeycodeConverter } from "./keycodes/keycodeConverter";
 import { MacroEditor } from "./MacroEditor";
 import { LightingEditor } from "./LightingEditor";
@@ -14,8 +14,8 @@ import { DynamicEntryCount } from "../services/vialKeyboad";
 export function QuantumSettingsEditor(props: {
   via: ViaKeyboard;
   onChange: (value: { [id: string]: number }) => void;
-  language: "zh" | "en";
-  onLanguageChange: (language: "zh" | "en") => void;
+  language: UiLanguage;
+  onLanguageChange: (language: UiLanguage) => void;
   macroCount?: number;
   customKeycodes?: { name: string; title: string; shortName: string }[];
   keymap?: KeymapProperties;
@@ -36,8 +36,12 @@ export function QuantumSettingsEditor(props: {
   const [mouseKeysSupported, setMouseKeysSupported] = useState<boolean | null>(null);
 
   const t = quantumTranslations[props.language ?? "en"];
+  const layoutLanguageTabs = quantumTranslations.layoutLanguageTabs as Record<
+    string,
+    (typeof quantumTranslations.layoutLanguageTabs)[keyof typeof quantumTranslations.layoutLanguageTabs]
+  >;
   const tabTranslations =
-    quantumTranslations.layoutLanguageTabs[props.keymapLanguage]?.tabs ?? t.tabs;
+    layoutLanguageTabs[props.keymapLanguage]?.tabs ?? t.tabs;
   const visibleQuantumTabs = QuantumSettingDefinition.filter(
     (quantumTab) => quantumTab.label !== "Mouse Keys" || mouseKeysSupported !== false,
   );

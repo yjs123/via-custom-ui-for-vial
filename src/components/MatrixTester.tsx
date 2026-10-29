@@ -9,7 +9,7 @@ import { KEY_GAP, KeymapKeyProperties, KeymapProperties, WIDTH_1U } from "./keym
 export function MatrixTester(props: {
   keymap: KeymapProperties;
   via: ViaKeyboard;
-  language: "zh" | "en";
+  language: "zh" | "en" | "ja" | "it" | "es";
   keymapLanguage?: string;
   dynamicEntryCount?: DynamicEntryCount;
   isActive?: boolean;

@@ -17,6 +17,7 @@ import {
   VialKeyboardSetAllConfig,
 } from "./services/vialKeyboardConfig";
 import { discardPendingKeycapAudio, prepareKeycapAudio } from "./components/KeymapEditor";
+import type { UiLanguage } from "./locales/translations";
 
 export const isTauri = import.meta.env.TAURI_ENV_PLATFORM !== undefined;
 
@@ -60,7 +61,7 @@ export function useAppController() {
   >([]);
   const [deviceIndex, setDeviceIndex] = useState<number>();
   const [keymapLanguage, setKeymapLanguage] = useState("zh");
-  const [uiLanguage, setUiLanguage] = useState<"zh" | "en">("zh");
+  const [uiLanguage, setUiLanguage] = useState<UiLanguage>("zh");
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
   const [batteryLevels, setBatteryLevels] = useState<[number | null, number | null] | null>(null);
   const [currentLayer, setCurrentLayer] = useState<number | null>(null);

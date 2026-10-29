@@ -1,6 +1,6 @@
 import { Box, Checkbox, FormControlLabel, Grid, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
-import quantumTranslations from "../locales/quantum.json";
+import { quantumTranslations, type UiLanguage } from "../locales/translations";
 import { ViaKeyboard } from "../services/vialKeyboad";
 import { DefaultQmkKeycode, KeycodeConverter, QmkKeycode } from "./keycodes/keycodeConverter";
 import { EditableKey } from "./KeymapEditor";
@@ -44,7 +44,7 @@ export function AltRepeatKeyEditor(props: {
   via: ViaKeyboard;
   keycodeConverter: KeycodeConverter;
   altRepeatIndex: number;
-  language?: "zh" | "en";
+  language?: UiLanguage;
 }) {
   const [altRepeat, setAltRepeat] = useState<{ [id: string]: AltRepeatKeyValue }>({});
   const boundaryRef = useRef<HTMLDivElement>(null);
@@ -117,7 +117,7 @@ function AltRepeatKeyEntry(props: {
   altRepeat: AltRepeatKeyValue;
   keycodeconverter: KeycodeConverter;
   boundaryRef?: React.RefObject<HTMLDivElement>;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange?: (val: AltRepeatKeyValue) => void;
 }) {
   const [candidate, setCandidate] = useState<AltRepeatKeyValue>(props.altRepeat);

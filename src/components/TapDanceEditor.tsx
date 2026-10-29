@@ -1,6 +1,6 @@
 import { Box, Grid, TextField } from "@mui/material";
 import { Fragment, useEffect, useRef, useState } from "react";
-import quantumTranslations from "../locales/quantum.json";
+import { quantumTranslations, type UiLanguage } from "../locales/translations";
 import { ViaKeyboard } from "../services/vialKeyboad";
 import { DefaultQmkKeycode, KeycodeConverter, QmkKeycode } from "./keycodes/keycodeConverter";
 import { EditableKey } from "./KeymapEditor";
@@ -13,7 +13,7 @@ export function TapDanceEditor(props: {
   via: ViaKeyboard;
   keycodeConverter: KeycodeConverter;
   tapdanceIndex: number;
-  language?: "zh" | "en";
+  language?: UiLanguage;
 }) {
   const [tapDance, setTapDance] = useState<{ [id: string]: TapDanceValue }>({});
   const boundaryRef = useRef<HTMLDivElement>(null);
@@ -84,7 +84,7 @@ function TapDanceEntry(props: {
   td: TapDanceValue;
   keycodeconverter: KeycodeConverter;
   boundaryRef?: React.RefObject<HTMLDivElement>;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange?: (td: TapDanceValue) => void;
 }) {
   const [tappingTerm, setTappingTerm] = useState(props.td.tappingTerm.toString());

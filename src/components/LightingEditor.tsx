@@ -1,6 +1,6 @@
 import { Box, ButtonBase, FormControl, InputLabel, MenuItem, Select, Slider } from "@mui/material";
 import { useEffect, useState } from "react";
-import quantumTranslations from "../locales/quantum.json";
+import { quantumTranslations, type UiLanguage } from "../locales/translations";
 import { ViaKeyboard } from "../services/vialKeyboad";
 import { LightingColorPicker } from "./LightingColorPicker";
 
@@ -160,7 +160,7 @@ function hsvToHex(hue: number, saturation: number, value: number) {
     .join("")}`;
 }
 
-export function LightingEditor(props: { via: ViaKeyboard; lighting?: string; language?: "zh" | "en" }) {
+export function LightingEditor(props: { via: ViaKeyboard; lighting?: string; language?: UiLanguage }) {
   const [effect, setEffect] = useState(0);
   const [color, setColor] = useState("#ff0000");
   const [brightness, setBrightness] = useState(128);

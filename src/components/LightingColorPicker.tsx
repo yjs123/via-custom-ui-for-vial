@@ -1,6 +1,6 @@
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import quantumTranslations from "../locales/quantum.json";
+import { quantumTranslations, type UiLanguage } from "../locales/translations";
 
 const PRESET_COLORS = [
   "#000000", "#8b0000", "#006400", "#8b4513", "#008000", "#808000", "#00ff00", "#ffff00",
@@ -57,7 +57,7 @@ function clamp(value: number, min = 0, max = 255) {
 export function LightingColorPicker(props: {
   open: boolean;
   value: string;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onCancel: () => void;
   onConfirm: (value: string) => void;
 }) {

@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { matchSorter } from "match-sorter";
 import { useEffect, useRef, useState } from "react";
-import quantumTranslations from "../locales/quantum.json";
+import { quantumTranslations, type UiLanguage } from "../locales/translations";
 import { DefaultQmkKeycode, KeycodeConverter, ModifierBit, ModifierBits, QmkKeycode } from "./keycodes/keycodeConverter";
 import { KeymapKeyProperties } from "./keymap/keymapTypes";
 
@@ -22,7 +22,7 @@ export function KeymapKeyPopUp(props: {
   anchor?: HTMLElement;
   boundary: HTMLElement | null;
   keymapKey?: KeymapKeyProperties;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onClickAway?: () => void;
   onChange?: (event: { keymapkey?: KeymapKeyProperties; keycode: QmkKeycode }) => void;
 }) {

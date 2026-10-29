@@ -9,7 +9,7 @@ import { TapDanceEditor } from "../TapDanceEditor";
 
 export function ComboOverrideEditor(props: {
   via: ViaKeyboard;
-  language: "zh" | "en";
+  language: "zh" | "en" | "ja" | "it" | "es";
   keymapLanguage: string;
   dynamicEntryCount: { combo: number; override: number; layer: number; tapdance: number };
 }) {
@@ -51,7 +51,7 @@ export function ComboOverrideEditor(props: {
 
 export function TapDanceSelector(props: {
   via: ViaKeyboard;
-  language: "zh" | "en";
+  language: "zh" | "en" | "ja" | "it" | "es";
   keymapLanguage: string;
   dynamicEntryCount: { combo: number; override: number; layer: number; tapdance: number };
 }) {
@@ -128,7 +128,7 @@ export function TapDanceSelector(props: {
 
 export function KeyOverrideSelector(props: {
   via: ViaKeyboard;
-  language: "zh" | "en";
+  language: "zh" | "en" | "ja" | "it" | "es";
   keymapLanguage: string;
   dynamicEntryCount: { combo: number; override: number; layer: number; tapdance: number };
 }) {
@@ -207,7 +207,7 @@ export function KeyOverrideSelector(props: {
 
 export function AltRepeatKeySelector(props: {
   via: ViaKeyboard;
-  language: "zh" | "en";
+  language: "zh" | "en" | "ja" | "it" | "es";
   keymapLanguage: string;
   dynamicEntryCount: { combo: number; override: number; layer: number; tapdance: number };
   count?: number;

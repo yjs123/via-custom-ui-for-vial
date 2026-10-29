@@ -16,7 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ChangeEvent, MouseEvent, RefObject } from "react";
-import quantumTranslations from "../locales/quantum.json";
+import { quantumTranslations, type UiLanguage } from "../locales/translations";
 import { isSlaveDeviceType } from "../services/vialKeyboad";
 import { KeyboardSelector } from "./KeyboardSelector";
 import { LanguageSelector } from "./LanguageSelector";
@@ -72,7 +72,7 @@ type AppToolbarProps = {
   onRefreshBattery: () => void;
   keymapLanguage: string;
   onLanguageChange: (language: string) => void;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   connectedSettingsVisible: boolean;
   onDownloadSettings: () => void;
   onUploadSettings: () => void;
@@ -472,7 +472,7 @@ export function AppToolbar(props: AppToolbarProps) {
               </IconButton>
             </Tooltip>
             <LanguageSelector
-              languageList={["US", "zh", "de"]}
+              languageList={["US", "zh", "de", "ja", "it", "es"]}
               lang={props.keymapLanguage}
               language={props.language}
               onChange={props.onLanguageChange}

@@ -16,7 +16,7 @@ import {
 import { MuiColorInput, MuiColorInputColors } from "mui-color-input";
 import { ChangeEvent, SyntheticEvent } from "react";
 import evaluate from "simple-evaluate";
-import quantumTranslations from "../locales/quantum.json";
+import { quantumTranslations, type UiLanguage } from "../locales/translations";
 
 interface MenuItemProperties {
   label: string;
@@ -29,7 +29,7 @@ type ToggleElement = {
   options?: [number, number];
   content: [string, number, number, number?];
   value?: number;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange: (value: number) => void;
 };
 
@@ -39,7 +39,7 @@ type RangeElement = {
   options?: [number, number];
   content: [string, number, number, number?];
   value: number;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange: (value: number) => void;
 };
 
@@ -49,7 +49,7 @@ type DropdownElement = {
   content: [string, number, number, number?];
   options: Array<[string, number]> | Array<string>;
   value: number;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange: (value: number) => void;
 };
 
@@ -58,7 +58,7 @@ type ColorElement = {
   label: string;
   content: [string, number, number, number?];
   value: number;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange: (value: number) => void;
 };
 
@@ -68,7 +68,7 @@ type ButtonElement = {
   content: [string, number, number, number?];
   options?: Array<number>;
   value: number;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange: (value: number) => void;
 };
 
@@ -78,7 +78,7 @@ type MultipleCheckboxElement = {
   content: [string, number, number, number?];
   options: Array<[string, number]> | Array<string>;
   value: number;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange: (value: number) => void;
 };
 
@@ -88,7 +88,7 @@ type CheckboxListElement = {
   content: [string, number, number, number?];
   options: Array<[string, number]> | Array<string>;
   value: number;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange: (value: number) => void;
 };
 
@@ -98,7 +98,7 @@ type NumberElement = {
   options?: [number, number];
   content: [string, number, number, number?];
   value: number;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange: (value: number) => void;
 };
 
@@ -107,7 +107,7 @@ type BooleanElement = {
   label: string;
   content: [string, number, number, number?];
   value: number;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange: (value: number) => void;
 };
 
@@ -117,7 +117,7 @@ type BitCheckboxElement = {
   bit?: number;
   content: [string, number, number, number?];
   value: number;
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange: (value: number) => void;
 };
 
@@ -144,17 +144,17 @@ type MenuSectionProperties = {
   label: string;
   content: (MenuElementProperties | ShowIfElement)[];
   customValues: { [id: string]: number };
-  language?: "zh" | "en";
+  language?: UiLanguage;
   onChange: (id: [string, number, number, number?], value: number) => void;
 };
 
-function translateLabel(label: string, lang: "zh" | "en" = "en"): string {
+function translateLabel(label: string, lang: UiLanguage = "en"): string {
   if (lang !== "zh") return label;
   const qmkLabels = quantumTranslations.zh.qmkSettings.labels as Record<string, string>;
   return qmkLabels[label] ?? label;
 }
 
-function translateOption(option: string, lang: "zh" | "en" = "en"): string {
+function translateOption(option: string, lang: UiLanguage = "en"): string {
   if (lang !== "zh") return option;
   const qmkOptions = quantumTranslations.zh.qmkSettings.options as Record<string, string>;
   return qmkOptions[option] ?? option;

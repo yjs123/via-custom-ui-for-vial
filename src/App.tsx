@@ -20,7 +20,7 @@ import { useAppController, via } from "./useAppController";
 
 function App() {
   const [keymapStyle, setKeymapStyle] = useState<KeymapStyle>("classic");
-  const [lightTheme, setLightTheme] = useState(false);
+  const [lightTheme, setLightTheme] = useState(true);
 
   useEffect(() => {
     document.body.classList.toggle("theme-light", lightTheme);

@@ -95,6 +95,7 @@ function TapDanceEntry(props: {
 
   const t = quantumTranslations[props.language ?? "en"];
   const labels = t.tapDance;
+  const keycodeTabs = t.keycodeTabs;
 
   const updateCandidate = (updated: TapDanceValue) => {
     setCandidateTapdance(updated);
@@ -221,13 +222,13 @@ function TapDanceEntry(props: {
           <KeycodeCatalog
             keycodeConverter={props.keycodeconverter}
             tab={[
-              { label: "Basic", keygroup: ["basic"] },
-              { label: "Mouse", keygroup: ["mouse"] },
-              { label: "Media", keygroup: ["media"] },
-              { label: "Quantum", keygroup: ["quantum", "magic"], layout: "quantumModifiers" },
-              { label: "Layer", keygroup: ["layer"] },
-              { label: "Macro", keygroup: ["macro"] },
-              { label: "Tap Dance", keygroup: ["tapdance"] },
+              { label: keycodeTabs.Basic, keygroup: ["basic"] },
+              { label: keycodeTabs.Mouse, keygroup: ["mouse"] },
+              { label: keycodeTabs.Media, keygroup: ["media"] },
+              { label: keycodeTabs.Quantum, keygroup: ["quantum", "magic"], layout: "quantumModifiers" },
+              { label: keycodeTabs.Layer, keygroup: ["layer"] },
+              { label: keycodeTabs.Macro, keygroup: ["macro"] },
+              { label: keycodeTabs.TapDance, keygroup: ["tapdance"] },
             ]}
           />
         </Box>

@@ -20,7 +20,7 @@
       "RGB": "RGB",
       "Layer": "层",
       "Macro": "宏",
-      "TapDance": "TapDance",
+      "TapDance": "点按动作",
       "Combos": "组合",
       "KeyOverride": "按键覆盖",
       "AltRepeatKey": "Alt Repeat Key"
@@ -29,7 +29,7 @@
       "Keymap": "按键映射",
       "Macro": "宏",
       "Lighting": "灯效",
-      "TapDance": "Tap Dance",
+      "TapDance": "点按动作",
       "Combos": "组合键",
       "KeyOverride": "按键覆盖",
       "AltRepeatKey": "替代重复键",

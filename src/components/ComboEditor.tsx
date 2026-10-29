@@ -100,6 +100,7 @@ function ComboEntry(props: {
 
   const t = quantumTranslations[props.language ?? "en"];
   const keyLabels = t.combos.keys;
+  const keycodeTabs = t.keycodeTabs;
 
   useEffect(() => {
     setCandidateCombo(props.combo);
@@ -189,13 +190,13 @@ function ComboEntry(props: {
           <KeycodeCatalog
             keycodeConverter={props.keycodeconverter}
             tab={[
-              { label: "Basic", keygroup: ["basic"] },
-              { label: "Mouse", keygroup: ["mouse"] },
-              { label: "Media", keygroup: ["media"] },
-              { label: "Quantum", keygroup: ["quantum", "magic"], layout: "quantumModifiers" },
-              { label: "Layer", keygroup: ["layer"] },
-              { label: "Macro", keygroup: ["macro"] },
-              { label: "Tap Dance", keygroup: ["tapdance"] },
+              { label: keycodeTabs.Basic, keygroup: ["basic"] },
+              { label: keycodeTabs.Mouse, keygroup: ["mouse"] },
+              { label: keycodeTabs.Media, keygroup: ["media"] },
+              { label: keycodeTabs.Quantum, keygroup: ["quantum", "magic"], layout: "quantumModifiers" },
+              { label: keycodeTabs.Layer, keygroup: ["layer"] },
+              { label: keycodeTabs.Macro, keygroup: ["macro"] },
+              { label: keycodeTabs.TapDance, keygroup: ["tapdance"] },
             ]}
           />
         </Box>

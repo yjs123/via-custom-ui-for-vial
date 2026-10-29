@@ -27,7 +27,7 @@ export function QuantumSettingsEditor(props: {
   onCustomSave?: () => void;
   onCustomErase?: () => void;
 }) {
-  const [tabValue, setTabValue] = useState(0);
+  const [tabValue, setTabValue] = useState("Keymap");
   const [quantumTabValue, setQuantumTabValue] = useState(0);
   const [quantumValue, setQuantumValue] = useState<{ [id: string]: number }>({});
   const [savedQuantumValue, setSavedQuantumValue] = useState<{ [id: string]: number }>({});
@@ -64,6 +64,9 @@ export function QuantumSettingsEditor(props: {
       ? [{ id: "Custom", label: "Custom" }]
       : []),
   ];
+  const visibleTabs = tabs.filter(
+    (menu) => !["KeyOverride", "AltRepeatKey", "Quantum"].includes(menu.id),
+  );
 
   useEffect(() => {
     if (props.macroCount === undefined) return;
@@ -172,9 +175,10 @@ export function QuantumSettingsEditor(props: {
           py: 0,
         }}
       >
-        {tabs.map((menu) => (
+        {visibleTabs.map((menu) => (
           <Tab
             key={menu.id}
+            value={menu.id}
             className={menu.id === "Keymap" ? "keymap-main-tab" : undefined}
             label={
               (tabTranslations as Record<string, string>)[menu.id] ?? menu.label
@@ -196,12 +200,12 @@ export function QuantumSettingsEditor(props: {
         ))}
       </Tabs>
 
-      {tabs.map((menu, idx) => (
+      {tabs.map((menu) => (
         <Box
-          key={idx}
+          key={menu.id}
           className={`quantum-tab-panel${menu.id === "Keymap" ? " keymap-tab-panel" : ""}${menu.id === "Quantum" ? " quantum-settings-tab-panel" : ""}${menu.id === "Macro" ? " macro-tab-panel" : ""}`}
           sx={{
-            display: tabValue === idx ? "block" : "none",
+            display: tabValue === menu.id ? "block" : "none",
           }}
         >
           {menu.id === "Keymap" && props.keymap && props.dynamicEntryCount ? (
@@ -498,7 +502,7 @@ export function QuantumSettingsEditor(props: {
               <LightingEditor via={props.via} lighting={props.keymap?.lighting} language={props.language} />
             </Box>
           ) : menu.id === "MatrixTester" && props.keymap ? (
-            tabValue === idx ? (
+            tabValue === menu.id ? (
               <MatrixTester
                 keymap={props.keymap}
                 via={props.via}

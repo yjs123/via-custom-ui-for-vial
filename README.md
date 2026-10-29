@@ -1,4 +1,4 @@
-# VIA custom UI for Vial
+# CMKB
 
 This application is designed to integrate [custom menus of VIA](https://www.caniusevia.com/docs/custom_ui) into Vial. By writing the definitions for VIA's custom UI in `vial.json`, various menus can be displayed.
 

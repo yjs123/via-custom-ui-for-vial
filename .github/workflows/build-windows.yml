@@ -24,6 +24,6 @@ jobs:
       - run: npx tauri build --no-bundle
       - uses: actions/upload-artifact@v6
         with:
-          name: via-custom-ui-for-vial-exe
-          path: src-tauri/target/release/via-custom-ui-for-vial.exe
+          name: CMKB-exe
+          path: src-tauri/target/release/CMKB.exe
           if-no-files-found: error

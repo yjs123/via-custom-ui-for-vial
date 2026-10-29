@@ -41,8 +41,8 @@
       }
     }
   },
-  "productName": "via-custom-ui-for-vial",
-  "mainBinaryName": "via-custom-ui-for-vial",
+  "productName": "CMKB",
+  "mainBinaryName": "CMKB",
   "version": "0.1.0",
   "identifier": "sekigon.dev",
   "plugins": {},
@@ -52,7 +52,7 @@
         "fullscreen": false,
         "height": 800,
         "resizable": true,
-        "title": "via-custom-ui-for-vial",
+        "title": "CMKB",
         "width": 1200,
         "useHttpsScheme": true
       }

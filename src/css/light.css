@@ -135,6 +135,27 @@ body.theme-light *::-webkit-scrollbar-thumb:hover {
   box-shadow: inset 0 0 0 1px rgba(51, 93, 76, 0.28);
 }
 
+.app-shell.theme-light .matrix-tester {
+  --matrix-control-text: #29445d;
+  --matrix-control-border: #8ea8bb;
+  --matrix-control-bg: #f7fafc;
+  --matrix-control-hover: #e4edf4;
+  --matrix-control-hover-border: #66869f;
+  --matrix-hint: #526b80;
+  --matrix-surface: #f5f8fb;
+  --matrix-surface-border: #aebdca;
+  --matrix-key-bg: #ffffff;
+  --matrix-key-border: #aebdca;
+  --matrix-key-text: #29445d;
+  --matrix-key-active-bg: #ccebdc;
+  --matrix-key-active-border: #32946b;
+  --matrix-key-active-text: #174b37;
+  --matrix-key-active-shadow: 0 0 0 2px rgba(50, 148, 107, 0.2);
+  --matrix-key-tested-bg: #dcefe5;
+  --matrix-key-tested-border: #8cbea2;
+  --matrix-key-tested-text: #285d40;
+}
+
 .app-shell.theme-light .MuiTab-root {
   color: #587086 !important;
 }

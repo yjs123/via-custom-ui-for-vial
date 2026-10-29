@@ -229,15 +229,15 @@ export function MatrixTester(props: {
             size="small"
             onClick={handleReset}
             sx={{
-              color: "#e2e8f0",
-              borderColor: "#64748b",
-              backgroundColor: "#334155",
+              color: "var(--matrix-control-text, #e2e8f0)",
+              borderColor: "var(--matrix-control-border, #64748b)",
+              backgroundColor: "var(--matrix-control-bg, #334155)",
               textTransform: "none",
               px: 2,
               py: 0.5,
               "&:hover": {
-                backgroundColor: "#475569",
-                borderColor: "#94a3b8",
+                backgroundColor: "var(--matrix-control-hover, #475569)",
+                borderColor: "var(--matrix-control-hover-border, #94a3b8)",
               },
             }}
           >
@@ -250,9 +250,9 @@ export function MatrixTester(props: {
               variant="outlined"
               value={layoutOption[0] ?? 0}
               sx={{
-                color: "#e2e8f0",
+                color: "var(--matrix-control-text, #e2e8f0)",
                 fontSize: "0.82rem",
-                "& .MuiOutlinedInput-notchedOutline": { borderColor: "#475569" },
+                "& .MuiOutlinedInput-notchedOutline": { borderColor: "var(--matrix-control-border, #475569)" },
               }}
               onChange={(event) => {
                 setLayoutOption({ 0: Number(event.target.value) });
@@ -268,7 +268,7 @@ export function MatrixTester(props: {
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-          <Typography className="matrix-tester-hint" sx={{ fontSize: "0.85rem", color: "#94a3b8" }}>
+          <Typography className="matrix-tester-hint" sx={{ fontSize: "0.85rem", color: "var(--matrix-hint, #94a3b8)" }}>
             {isZh
               ? `已测试: ${testedCount} / ${totalKeys} 键`
               : `Tested: ${testedCount} / ${totalKeys} keys`}
@@ -291,8 +291,8 @@ export function MatrixTester(props: {
           overflowX: "auto",
           p: 2,
           borderRadius: 2,
-          backgroundColor: "#1e2227",
-          border: "1px solid #333842",
+          backgroundColor: "var(--matrix-surface, #1e2227)",
+          border: "1px solid var(--matrix-surface-border, #333842)",
           minHeight: maxRowHeight + 20,
         }}
       >
@@ -309,20 +309,20 @@ export function MatrixTester(props: {
             const isActive = activeMatrixKeys.has(keyId);
             const isTested = testedMatrixKeys.has(keyId);
 
-            let bg = "rgba(45, 50, 58, 0.9)";
-            let borderColor = "#484f5c";
-            let textColor = "#8fa4bd";
+            let bg = "var(--matrix-key-bg, rgba(45, 50, 58, 0.9))";
+            let borderColor = "var(--matrix-key-border, #484f5c)";
+            let textColor = "var(--matrix-key-text, #8fa4bd)";
             let boxShadow = "none";
 
             if (isActive) {
-              bg = "#e2e8f0";
-              borderColor = "#ffffff";
-              textColor = "#0f172a";
-              boxShadow = "0 0 14px rgba(255, 255, 255, 0.6)";
+              bg = "var(--matrix-key-active-bg, #e2e8f0)";
+              borderColor = "var(--matrix-key-active-border, #ffffff)";
+              textColor = "var(--matrix-key-active-text, #0f172a)";
+              boxShadow = "var(--matrix-key-active-shadow, 0 0 14px rgba(255, 255, 255, 0.6))";
             } else if (isTested) {
-              bg = "#475569";
-              borderColor = "#64748b";
-              textColor = "#f8fafc";
+              bg = "var(--matrix-key-tested-bg, #475569)";
+              borderColor = "var(--matrix-key-tested-border, #64748b)";
+              textColor = "var(--matrix-key-tested-text, #f8fafc)";
             }
 
             const labelText = p.keycode.label || p.keycode.key || "";

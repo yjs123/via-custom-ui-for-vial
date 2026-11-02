@@ -72,15 +72,21 @@ export function QuantumSettingsEditor(props: {
     if (props.macroCount === undefined) return;
 
     KeycodeConverter.Create(
-      0,
+      props.dynamicEntryCount?.layer ?? 0,
       props.customKeycodes,
       props.macroCount,
-      0,
+      props.dynamicEntryCount?.tapdance ?? 0,
       "Chinese",
       "0.0.3",
       props.language,
     ).then((k) => setKeycodeConverter(k));
-  }, [props.customKeycodes, props.language, props.macroCount]);
+  }, [
+    props.customKeycodes,
+    props.dynamicEntryCount?.layer,
+    props.dynamicEntryCount?.tapdance,
+    props.language,
+    props.macroCount,
+  ]);
 
   useEffect(() => {
     if (mouseKeysSupported === false && QuantumSettingDefinition[quantumTabValue]?.label === "Mouse Keys") {

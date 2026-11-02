@@ -324,6 +324,7 @@ function MacroEntry(props: {
         <Box sx={{ mt: 2 }}>
           <KeycodeCatalog
             keycodeConverter={props.keycodeConverter}
+            hideRgbMatrixKeys
             tab={[
               { label: t.keycodeTabs.Basic, keygroup: ["basic"] },
               { label: t.keycodeTabs.Mouse, keygroup: ["mouse"] },

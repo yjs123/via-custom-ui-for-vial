@@ -357,6 +357,7 @@ export class KeycodeConverter {
       tapDanceCount,
       language,
       customKeycodeTranslations,
+      uiLanguage,
     );
   }
 
@@ -369,6 +370,7 @@ export class KeycodeConverter {
     tapDanceCount: number = 0,
     language: string = "US",
     customKeycodeTranslations: { [key: string]: string } = {},
+    uiLanguage: string = "en",
   ) {
     this.customKeycodes = customKeycodes;
     this.layer = layer;
@@ -442,7 +444,7 @@ export class KeycodeConverter {
             group: "layer",
             value: keycode_range.QK_TO.start + idx,
             key: `To Layer ${idx}`,
-            label: `TO${idx}`,
+            label: uiLanguage === "zh" && idx < 4 ? `配置${idx}` : `TO${idx}`,
           };
         }),
       );
@@ -452,7 +454,7 @@ export class KeycodeConverter {
             group: "layer",
             value: keycode_range.QK_MOMENTARY.start + idx,
             key: `Momentary Layer ${idx}`,
-            label: `MO${idx}`,
+            label: ({ 1: "FN", 2: "FN2", 3: "FN3" } as Record<number, string>)[idx] ?? `MO${idx}`,
           };
         }),
       );

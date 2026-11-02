@@ -484,6 +484,7 @@ export function KeycodeCatalog(props: {
   directKeygroups?: string[];
   showTapDanceEditIndicator?: boolean;
   showComboOverrideEditIndicator?: boolean;
+  hideDynamicMacroKeys?: boolean;
   comboCount?: number;
   overrideCount?: number;
   onMacroSelect?: (index: number) => void;
@@ -623,7 +624,11 @@ export function KeycodeCatalog(props: {
                   >
                     {props.keycodeConverter
                       .getTapKeycodeList()
-                      .filter((k) => k.group === keygroup)
+                      .filter(
+                        (keycode) =>
+                          keycode.group === keygroup &&
+                          !(props.hideDynamicMacroKeys && keycode.key.startsWith("QK_DYNAMIC_MACRO_")),
+                      )
                       .map((keycode, index) => {
                         const animationDelay = Math.min(MAX_ANIMATION_DELAY_MS, index * 12);
                         return match(keycode.group)

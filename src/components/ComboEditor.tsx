@@ -189,6 +189,7 @@ function ComboEntry(props: {
         <Box className="combo-candidate-panel" sx={{ mt: 2 }}>
           <KeycodeCatalog
             keycodeConverter={props.keycodeconverter}
+            hideDynamicMacroKeys
             tab={[
               { label: keycodeTabs.Basic, keygroup: ["basic"] },
               { label: keycodeTabs.Mouse, keygroup: ["mouse"] },

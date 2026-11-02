@@ -221,6 +221,7 @@ function TapDanceEntry(props: {
         <Box className="entry-candidate-panel" sx={{ mt: 2 }}>
           <KeycodeCatalog
             keycodeConverter={props.keycodeconverter}
+            hideDynamicMacroKeys
             tab={[
               { label: keycodeTabs.Basic, keygroup: ["basic"] },
               { label: keycodeTabs.Mouse, keygroup: ["mouse"] },

@@ -627,6 +627,9 @@ export function KeycodeCatalog(props: {
                       .filter(
                         (keycode) =>
                           keycode.group === keygroup &&
+                          (keygroup !== "layer" ||
+                            keycode.key.startsWith("To Layer ") ||
+                            keycode.key.startsWith("Momentary Layer ")) &&
                           !(props.hideDynamicMacroKeys && keycode.key.startsWith("QK_DYNAMIC_MACRO_")),
                       )
                       .map((keycode, index) => {

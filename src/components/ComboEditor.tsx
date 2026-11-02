@@ -190,11 +190,13 @@ function ComboEntry(props: {
           <KeycodeCatalog
             keycodeConverter={props.keycodeconverter}
             hideDynamicMacroKeys
+            hideRgbMatrixKeys
             tab={[
               { label: keycodeTabs.Basic, keygroup: ["basic"] },
               { label: keycodeTabs.Mouse, keygroup: ["mouse"] },
               { label: keycodeTabs.Media, keygroup: ["media"] },
               { label: keycodeTabs.Quantum, keygroup: ["quantum", "magic"], layout: "quantumModifiers" },
+              { label: keycodeTabs.RGB, keygroup: ["backlight", "rgb", "rgb_matrix"] },
               { label: keycodeTabs.Layer, keygroup: ["layer"] },
               { label: keycodeTabs.Macro, keygroup: ["macro"] },
               { label: keycodeTabs.TapDance, keygroup: ["tapdance"] },

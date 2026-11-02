@@ -502,6 +502,7 @@ export function KeycodeCatalog(props: {
   showTapDanceEditIndicator?: boolean;
   showComboOverrideEditIndicator?: boolean;
   hideDynamicMacroKeys?: boolean;
+  hideRgbMatrixKeys?: boolean;
   onKeycodeSelect?: (keycode: QmkKeycode) => void;
   comboCount?: number;
   overrideCount?: number;
@@ -651,6 +652,7 @@ export function KeycodeCatalog(props: {
                             (keycode.key.startsWith("To Layer ") ||
                               (keycode.key.startsWith("Momentary Layer ") &&
                                 keycode.key !== "Momentary Layer 0"))) &&
+                          !(props.hideRgbMatrixKeys && keycode.group === "rgb_matrix") &&
                           !(props.hideDynamicMacroKeys && keycode.key.startsWith("QK_DYNAMIC_MACRO_")),
                       )
                       .map((keycode, index) => {

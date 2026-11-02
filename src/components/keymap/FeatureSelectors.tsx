@@ -11,7 +11,7 @@ export function ComboOverrideEditor(props: {
   via: ViaKeyboard;
   language: "zh" | "en" | "ja" | "it" | "es";
   keymapLanguage: string;
-  dynamicEntryCount: { combo: number; override: number; layer: number; tapdance: number };
+  dynamicEntryCount: { combo: number; override: number; layer: number; macro: number; tapdance: number };
 }) {
   const [keycodeConverter, setKeycodeConverter] = useState<KeycodeConverter>();
   const [comboIndex, setComboIndex] = useState(0);
@@ -20,7 +20,7 @@ export function ComboOverrideEditor(props: {
     KeycodeConverter.Create(
       props.dynamicEntryCount.layer,
       undefined,
-      0,
+      props.dynamicEntryCount.macro,
       props.dynamicEntryCount.tapdance,
       props.keymapLanguage,
       "0.0.3",
@@ -53,7 +53,7 @@ export function TapDanceSelector(props: {
   via: ViaKeyboard;
   language: "zh" | "en" | "ja" | "it" | "es";
   keymapLanguage: string;
-  dynamicEntryCount: { combo: number; override: number; layer: number; tapdance: number };
+  dynamicEntryCount: { combo: number; override: number; layer: number; macro: number; tapdance: number };
 }) {
   const [keycodeConverter, setKeycodeConverter] = useState<KeycodeConverter>();
   const [editorIndex, setEditorIndex] = useState<number>(0);
@@ -62,7 +62,7 @@ export function TapDanceSelector(props: {
     KeycodeConverter.Create(
       props.dynamicEntryCount.layer,
       undefined,
-      0,
+      props.dynamicEntryCount.macro,
       props.dynamicEntryCount.tapdance,
       props.keymapLanguage,
       "0.0.3",

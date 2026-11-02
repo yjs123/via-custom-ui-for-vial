@@ -3,8 +3,9 @@ import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { ViaKeyboard } from "../services/vialKeyboad";
 import { quantumTranslations, type UiLanguage } from "../locales/translations";
-import { DefaultQmkKeycode, KeycodeConverter } from "./keycodes/keycodeConverter";
-import { EditableKey, KeymapKeyPopUp } from "./KeymapEditor";
+import { KeycodeConverter, QmkKeycode } from "./keycodes/keycodeConverter";
+import { EditableKey } from "./KeymapEditor";
+import { KeycodeCatalog } from "./KeycodeCatalog";
 
 
 export function MacroEditor(props: {
@@ -147,10 +148,7 @@ function MacroEntry(props: {
 }) {
   const t = quantumTranslations[props.language ?? "en"];
   const [actions, setActions] = useState<number[][]>([[]]);
-  const [popupOpen, setpopupOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | undefined>(undefined);
-  const [candidateKeycode, setCandidateKeycode] = useState(DefaultQmkKeycode);
-  const [focusedAction, setFocusedAction] = useState(0);
+  const [focusedAction, setFocusedAction] = useState<number | null>(null);
 
   useEffect(() => {
     setActions(getActions(props.buffer));
@@ -288,10 +286,7 @@ function MacroEntry(props: {
                       ),
                     )
                   }
-                  onClick={(target) => {
-                    setpopupOpen(true);
-                    setAnchorEl(target);
-                    setCandidateKeycode(props.keycodeConverter.convertIntToKeycode(action[2]));
+                  onClick={() => {
                     setFocusedAction(idx);
                   }}
                 ></EditableKey>
@@ -312,28 +307,6 @@ function MacroEntry(props: {
           </Stack>
         );
       })}
-      <KeymapKeyPopUp
-        open={popupOpen}
-        keycode={candidateKeycode}
-        keycodeconverter={props.keycodeConverter}
-        anchor={anchorEl}
-        boundary={props.boundaryRef?.current ?? null}
-        language={props.language}
-        onClickAway={() => {
-          if (popupOpen) {
-            setpopupOpen(false);
-            setAnchorEl(undefined);
-            setActions(
-              actions.map((action, id) =>
-                focusedAction == id ? [action[0], action[1], candidateKeycode.value] : action,
-              ),
-            );
-          }
-        }}
-        onChange={(event) => {
-          setCandidateKeycode(event.keycode);
-        }}
-      ></KeymapKeyPopUp>
       <div>
         <Button onClick={() => setActions([...actions, []])}>{t.macro.addText}</Button>
         <Button onClick={() => setActions([...actions, [1, 1, 0]])}>{t.macro.addTap}</Button>
@@ -347,6 +320,32 @@ function MacroEntry(props: {
           {t.macro.save}
         </Button>
       </div>
+      {focusedAction !== null && (
+        <Box sx={{ mt: 2 }}>
+          <KeycodeCatalog
+            keycodeConverter={props.keycodeConverter}
+            tab={[
+              { label: t.keycodeTabs.Basic, keygroup: ["basic"] },
+              { label: t.keycodeTabs.Mouse, keygroup: ["mouse"] },
+              { label: t.keycodeTabs.UserWireless, keygroup: ["custom"] },
+              { label: t.keycodeTabs.Media, keygroup: ["media"] },
+              { label: t.keycodeTabs.Quantum, keygroup: ["quantum", "magic"], layout: "quantumModifiers" },
+              { label: t.keycodeTabs.RGB, keygroup: ["backlight", "rgb", "rgb_matrix"] },
+              { label: t.keycodeTabs.Layer, keygroup: ["layer"] },
+              { label: t.keycodeTabs.Macro, keygroup: ["macro"] },
+              { label: t.keycodeTabs.TapDance, keygroup: ["tapdance"] },
+            ]}
+            onKeycodeSelect={(keycode: QmkKeycode) => {
+              setActions((currentActions) =>
+                currentActions.map((action, index) =>
+                  index === focusedAction ? [action[0], action[1], keycode.value] : action,
+                ),
+              );
+              setFocusedAction(null);
+            }}
+          />
+        </Box>
+      )}
     </>
   );
 }

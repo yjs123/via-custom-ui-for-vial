@@ -149,6 +149,7 @@ function KeyListKey(props: {
   widthMultiplier?: number;
   marginRight?: number;
   animationDelay?: number;
+  onKeycodeSelect?: (keycode: QmkKeycode) => void;
   showEditIndicator?: boolean;
   editOnClick?: boolean;
   onEditClick?: () => void;
@@ -226,6 +227,8 @@ function KeyListKey(props: {
             props.onClick();
           } else if (focusContext.focusedKey && focusContext.onKeycodeChange) {
             focusContext.onKeycodeChange(focusContext.focusedKey, props.keycode);
+          } else if (props.onKeycodeSelect) {
+            props.onKeycodeSelect(props.keycode);
           } else if (props.onClick) {
             setShowToolTip(false);
             props.onClick?.();
@@ -253,7 +256,10 @@ function KeyListKey(props: {
 const ROW_ANIMATION_DELAY_MS = 55;
 const MAX_ANIMATION_DELAY_MS = 420;
 
-function BasicKeyboardLayout(props: { keycodes: QmkKeycode[] }) {
+function BasicKeyboardLayout(props: {
+  keycodes: QmkKeycode[];
+  onKeycodeSelect?: (keycode: QmkKeycode) => void;
+}) {
   const keycodeMap = new Map(props.keycodes.map((keycode) => [keycode.key, keycode]));
   const layoutKeys = new Set(
     [...BASIC_KEYBOARD_ROWS, ...NUMPAD_ROWS, ...NAVIGATION_ROWS]
@@ -271,6 +277,7 @@ function BasicKeyboardLayout(props: { keycodes: QmkKeycode[] }) {
         widthMultiplier={key ? BASIC_KEY_WIDTHS[key] : undefined}
         marginRight={key ? BASIC_KEY_MARGIN_RIGHT[key] : undefined}
         animationDelay={rowDelay(rowIndex)}
+        onKeycodeSelect={props.onKeycodeSelect}
       />
     ) : (
       <Box key={`empty-${index}`} sx={{ width: WIDTH_1U - 3, height: WIDTH_1U - 3 }} />
@@ -340,6 +347,7 @@ function BasicKeyboardLayout(props: { keycodes: QmkKeycode[] }) {
                 keycode={keycode}
                 draggable={true}
                 animationDelay={rowDelay(BASIC_KEYBOARD_ROWS.length + index)}
+                onKeycodeSelect={props.onKeycodeSelect}
               />
             ))}
           </Box>
@@ -357,7 +365,10 @@ const WIDTH_GAP_UNIT = WIDTH_1U + 5;
  * grave escape / space cadet keys and the modifier templates (OSM(mod), mod(kc), mod_T(kc)). They
  * are drawn in Vial's four rows, with the same spacing between Vial's key groups.
  */
-function QuantumModifiersLayout(props: { rows: QuantumTemplateKeycap[][] }) {
+function QuantumModifiersLayout(props: {
+  rows: QuantumTemplateKeycap[][];
+  onKeycodeSelect?: (keycode: QmkKeycode) => void;
+}) {
   return (
     <Box
       className="quantum-modifier-layout"
@@ -385,6 +396,7 @@ function QuantumModifiersLayout(props: { rows: QuantumTemplateKeycap[][] }) {
                 draggable={true}
                 widthMultiplier={keycap.widthMultiplier}
                 animationDelay={Math.min(MAX_ANIMATION_DELAY_MS, rowIndex * ROW_ANIMATION_DELAY_MS)}
+                onKeycodeSelect={props.onKeycodeSelect}
               />
             </Fragment>
           ))}
@@ -400,7 +412,11 @@ function QuantumModifiersLayout(props: { rows: QuantumTemplateKeycap[][] }) {
  * Vial lists without a group title. The template keycaps are skipped there, so none of them shows up
  * twice.
  */
-function QuantumCatalogTab(props: { keycodeConverter: KeycodeConverter; keygroups: string[] }) {
+function QuantumCatalogTab(props: {
+  keycodeConverter: KeycodeConverter;
+  keygroups: string[];
+  onKeycodeSelect?: (keycode: QmkKeycode) => void;
+}) {
   const templateRows = props.keycodeConverter.getQuantumTemplateRows();
   const templateValues = new Set(templateRows.flat().map((keycap) => keycap.keycode.value));
   const keycodes = props.keygroups
@@ -411,7 +427,7 @@ function QuantumCatalogTab(props: { keycodeConverter: KeycodeConverter; keygroup
 
   return (
     <>
-      <QuantumModifiersLayout rows={templateRows} />
+      <QuantumModifiersLayout rows={templateRows} onKeycodeSelect={props.onKeycodeSelect} />
       <Box
         className="keycode-group"
         sx={{
@@ -443,6 +459,7 @@ function QuantumCatalogTab(props: { keycodeConverter: KeycodeConverter; keygroup
               keycode={keycode}
               draggable={true}
               animationDelay={Math.min(MAX_ANIMATION_DELAY_MS, index * 12)}
+              onKeycodeSelect={props.onKeycodeSelect}
             />
           ))}
         </Box>
@@ -485,6 +502,7 @@ export function KeycodeCatalog(props: {
   showTapDanceEditIndicator?: boolean;
   showComboOverrideEditIndicator?: boolean;
   hideDynamicMacroKeys?: boolean;
+  onKeycodeSelect?: (keycode: QmkKeycode) => void;
   comboCount?: number;
   overrideCount?: number;
   onMacroSelect?: (index: number) => void;
@@ -577,6 +595,7 @@ export function KeycodeCatalog(props: {
               <QuantumCatalogTab
                 keycodeConverter={props.keycodeConverter}
                 keygroups={tab.keygroup}
+                onKeycodeSelect={props.onKeycodeSelect}
               />
             ) : (
               tab.keygroup.map((keygroup) => (
@@ -604,6 +623,7 @@ export function KeycodeCatalog(props: {
                       .filter((keycode) =>
                         keycode.group === "basic" || keycode.group === "modifiers",
                       )}
+                    onKeycodeSelect={props.onKeycodeSelect}
                   />
                 </>
               ) : keygroup === "modifiers" ? (
@@ -651,6 +671,7 @@ export function KeycodeCatalog(props: {
                                   : undefined
                               }
                               animationDelay={animationDelay}
+                              onKeycodeSelect={props.onKeycodeSelect}
                               onClick={() => {
                                 props.onTapdanceSelect?.(keycode.value & 0x1f);
                               }}
@@ -662,6 +683,7 @@ export function KeycodeCatalog(props: {
                               keycode={keycode}
                               draggable={true}
                               animationDelay={animationDelay}
+                              onKeycodeSelect={props.onKeycodeSelect}
                             ></KeyListKey>
                           ))
                           .exhaustive();

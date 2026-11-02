@@ -691,7 +691,7 @@
     ],
     "language": {
       "zh": {
-        "label": "色相+"
+        "label": "色彩+"
       },
       "de": {
         "label": "Farbton +"
@@ -706,7 +706,7 @@
     ],
     "language": {
       "zh": {
-        "label": "色相-"
+        "label": "色彩-"
       },
       "de": {
         "label": "Farbton -"

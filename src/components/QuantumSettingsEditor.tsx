@@ -76,7 +76,7 @@ export function QuantumSettingsEditor(props: {
       props.customKeycodes,
       props.macroCount,
       props.dynamicEntryCount?.tapdance ?? 0,
-      "Chinese",
+      props.keymapLanguage,
       "0.0.3",
       props.language,
     ).then((k) => setKeycodeConverter(k));
@@ -84,6 +84,7 @@ export function QuantumSettingsEditor(props: {
     props.customKeycodes,
     props.dynamicEntryCount?.layer,
     props.dynamicEntryCount?.tapdance,
+    props.keymapLanguage,
     props.language,
     props.macroCount,
   ]);

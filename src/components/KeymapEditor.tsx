@@ -154,6 +154,7 @@ export function KeymapEditor(props: {
           keycodeConverter={keycodeConverter}
           hideDynamicMacroKeys
           hideRgbMatrixKeys
+          hideBacklightControlKeys
           tab={[
             { label: quantumTranslations[props.language].keycodeTabs.Basic, keygroup: ["basic"] },
             { label: quantumTranslations[props.language].keycodeTabs.Mouse, keygroup: ["mouse"] },

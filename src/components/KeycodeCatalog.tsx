@@ -503,6 +503,7 @@ export function KeycodeCatalog(props: {
   showComboOverrideEditIndicator?: boolean;
   hideDynamicMacroKeys?: boolean;
   hideRgbMatrixKeys?: boolean;
+  hideBacklightControlKeys?: boolean;
   onKeycodeSelect?: (keycode: QmkKeycode) => void;
   comboCount?: number;
   overrideCount?: number;
@@ -652,6 +653,14 @@ export function KeycodeCatalog(props: {
                             (keycode.key.startsWith("To Layer ") ||
                               (keycode.key.startsWith("Momentary Layer ") &&
                                 keycode.key !== "Momentary Layer 0"))) &&
+                          !(props.hideBacklightControlKeys && [
+                            "QK_BACKLIGHT_ON",
+                            "QK_BACKLIGHT_OFF",
+                            "QK_BACKLIGHT_DOWN",
+                            "QK_BACKLIGHT_UP",
+                            "QK_BACKLIGHT_STEP",
+                            "QK_BACKLIGHT_TOGGLE_BREATHING",
+                          ].includes(keycode.key)) &&
                           !(props.hideRgbMatrixKeys && keycode.group === "rgb_matrix") &&
                           !(props.hideDynamicMacroKeys && keycode.key.startsWith("QK_DYNAMIC_MACRO_")),
                       )

@@ -223,6 +223,7 @@ function TapDanceEntry(props: {
             keycodeConverter={props.keycodeconverter}
             hideDynamicMacroKeys
             hideRgbMatrixKeys
+            hideBacklightControlKeys
             tab={[
               { label: keycodeTabs.Basic, keygroup: ["basic"] },
               { label: keycodeTabs.Mouse, keygroup: ["mouse"] },

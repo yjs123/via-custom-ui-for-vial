@@ -484,49 +484,48 @@ class VialKeyboard {
     matrix_definition: { rows: number; cols: number },
     silent: boolean = false,
   ): Promise<number[]> {
-    // trace callers to help debug excessive load requests
-    try {
-      console.trace(`GetLayer called for layer ${layer}`);
-    } catch {}
     const matrix_len = matrix_definition.rows * matrix_definition.cols * 2; // 2byte per key
     const start = layer * matrix_len;
 
     const pageSize = this.pageSize;
     const pageCount = Math.ceil(matrix_len / pageSize);
-    const keymap_buffer: Uint8Array[] = [];
+    const keymap_buffer = new Uint8Array(matrix_len);
     for (let idx = 0; idx < pageCount; idx++) {
       const offset = start + idx * pageSize;
-      const response = await this.Command([
-        via_command_id.id_dynamic_keymap_get_buffer,
-        (offset >> 8) & 0xff,
-        offset & 0xff,
-        pageSize,
-      ], silent);
-      const responseOffset = (response[1] << 8) | response[2];
-      if (
-        response[0] !== via_command_id.id_dynamic_keymap_get_buffer ||
-        responseOffset !== offset
-      ) {
+      const length = Math.min(pageSize, matrix_len - idx * pageSize);
+      let page: Uint8Array | undefined;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        const response = await this.Command([
+          via_command_id.id_dynamic_keymap_get_buffer,
+          (offset >> 8) & 0xff,
+          offset & 0xff,
+          length,
+        ], silent);
+        const responseOffset = (response[1] << 8) | response[2];
+        if (
+          response[0] === via_command_id.id_dynamic_keymap_get_buffer &&
+          responseOffset === offset &&
+          response[3] === length &&
+          response.length >= 4 + length
+        ) {
+          page = response.slice(4, 4 + length);
+          break;
+        }
         console.warn(
           `keymap page mismatch: requested 0x${offset.toString(16)}, received ${this.formatHex(response)}`,
         );
-        continue;
       }
-      keymap_buffer.push(response);
+      if (!page) {
+        throw new Error(`Failed to read keymap layer ${layer} at offset 0x${offset.toString(16)}`);
+      }
+      keymap_buffer.set(page, idx * pageSize);
     }
 
-    return keymap_buffer
-      .map((b) => Array.from(b.slice(4)))
-      .flat()
-      .reduce((p: number[], c, i) => {
-        if (i & 1) {
-          const b = p.pop();
-          p.push((b! << 8) | c);
-        } else {
-          p.push(c);
-        }
-        return p;
-      }, []);
+    const keycodes: number[] = [];
+    for (let idx = 0; idx < matrix_len; idx += 2) {
+      keycodes.push((keymap_buffer[idx] << 8) | keymap_buffer[idx + 1]);
+    }
+    return keycodes;
   }
 
   async SetLayer(
@@ -970,6 +969,15 @@ class VialKeyboard {
     if (res.length > 4 && res[0] === via_command_id.id_battery && res[1] === 0xab) {
       return [res[2], res[3]];
     }
+    return null;
+  }
+
+  async GetReportRate(): Promise<1 | 4 | 8 | null> {
+    const packet = new Uint8Array(32);
+    packet[0] = 0xb8;
+    const res = await this.Command(packet);
+    if (res.length < 3 || res[0] !== 0xb8 || res[1] !== 0xaa) return null;
+    if (res[2] === 1 || res[2] === 4 || res[2] === 8) return res[2];
     return null;
   }
 

@@ -1,5 +1,7 @@
 import { match, P } from "ts-pattern";
 import keycodeDescriptions from "../locales/keycodeDescriptions.json";
+import { getLocalizedKeyFunction } from "../locales/keySettingHints";
+import type { UiLanguage } from "../locales/translations";
 import { KeycodeConverter, modStringName, QmkKeycode } from "./keycodes/keycodeConverter";
 
 /** Descriptions of single keycodes, keyed by their name (e.g. "QK_AUDIO_ON"). */
@@ -47,13 +49,63 @@ function describeFamily(name: string) {
 export function describeKeycode(
   keycode: QmkKeycode,
   converter: KeycodeConverter,
+  language: UiLanguage = "zh",
 ): string | undefined {
+  if (language !== "zh") {
+    const rangeDescription = describeLocalizedRange(keycode, converter, language);
+    if (rangeDescription) return rangeDescription;
+    const range = converter.getKeycodeRange();
+    const isCustomKeycode = keycode.group === "custom" ||
+      (keycode.value >= range.QK_KB.start && keycode.value <= range.QK_USER.end);
+    if (isCustomKeycode && keycode.label.trim() !== "" && keycode.label !== keycode.key) {
+      return getLocalizedKeyFunction(language, "custom", { label: keycode.label.trim() });
+    }
+    const familyDescription = describeLocalizedFamily(keycode.key, language);
+    if (familyDescription) return familyDescription;
+    return getLocalizedKeyFunction(language, keycode.key, { key: keycode.label.trim() || keycode.key });
+  }
   return (
     describeRange(keycode, converter) ??
     keycodes[keycode.key] ??
     describeFamily(keycode.key) ??
     describeCustom(keycode, converter)
   );
+}
+
+function describeLocalizedFamily(name: string, language: UiLanguage): string | undefined {
+  const match = /^(QK_MIDI_(?:NOTE|VELOCITY|CHANNEL|TRANSPOSE)_[A-Z0-9_]+|QK_MIDI_[A-Z0-9_]+)$/.exec(name);
+  if (!match) return undefined;
+  return getLocalizedKeyFunction(language, match[1], {});
+}
+
+function describeLocalizedRange(
+  keycode: QmkKeycode,
+  converter: KeycodeConverter,
+  language: UiLanguage,
+): string | undefined {
+  const range = converter.getKeycodeRange();
+  const value = keycode.value;
+  const layer = value & 0x1f;
+  const base = keycode.tap === 0 || keycode.label === "" ? keycode.key : keycode.label;
+  const mod = keycode.modNameLabel ?? keycode.modLabel ?? modStringName((value >> 8) & 0x1f);
+  const definitions: [number, number, string, Record<string, string | number>][] = [
+    [0, 0, "KC_NO", {}], [1, 1, "KC_TRNS", {}],
+    [range.QK_MODS.start, range.QK_MODS.end, "MODS", { mod, base }],
+    [range.QK_MOD_TAP.start, range.QK_MOD_TAP.end, "MOD_TAP", { mod, base }],
+    [range.QK_LAYER_TAP.start, range.QK_LAYER_TAP.end, "LT", { layer: keycode.hold === undefined ? 0 : keycode.hold & 0xf, base }],
+    [range.QK_LAYER_MOD.start, range.QK_LAYER_MOD.end, "LM", { layer: (value >> 5) & 0xf, mod: modStringName(value & 0x1f) }],
+    [range.QK_TO.start, range.QK_TO.end, "TO", { layer }],
+    [range.QK_MOMENTARY.start, range.QK_MOMENTARY.end, "MO", { layer }],
+    [range.QK_DEF_LAYER.start, range.QK_DEF_LAYER.end, "DF", { layer }],
+    [range.QK_TOGGLE_LAYER.start, range.QK_TOGGLE_LAYER.end, "TG", { layer }],
+    [range.QK_ONE_SHOT_LAYER.start, range.QK_ONE_SHOT_LAYER.end, "OSL", { layer }],
+    [range.QK_LAYER_TAP_TOGGLE.start, range.QK_LAYER_TAP_TOGGLE.end, "TT", { layer }],
+    [range.QK_ONE_SHOT_MOD.start, range.QK_ONE_SHOT_MOD.end, "OSM", { mod: modStringName(value & 0x1f) }],
+    [range.QK_TAP_DANCE.start, range.QK_TAP_DANCE.end, "TD", { index: value - range.QK_TAP_DANCE.start }],
+    [range.QK_MACRO.start, range.QK_MACRO.end, "MACRO", { index: value - range.QK_MACRO.start }],
+  ];
+  const match = definitions.find(([start, end]) => value >= start && value <= end);
+  return match ? getLocalizedKeyFunction(language, match[2], match[3]) : undefined;
 }
 
 /**

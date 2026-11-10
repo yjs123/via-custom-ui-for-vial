@@ -9,6 +9,7 @@ import { match, P } from "ts-pattern";
 import { useEffect, useState } from "react";
 import { AppToolbar, KeymapStyle } from "./components/AppToolbar";
 import { quantumTranslations } from "./locales/translations";
+import { UiLanguageContext } from "./locales/UiLanguageContext";
 import {
   discardPendingKeycapAudio,
   prepareKeycapAudio,
@@ -83,6 +84,7 @@ function App() {
   const isSlaveDevice = isSlaveDeviceType(vialJson?.deviceType);
 
   return (
+    <UiLanguageContext.Provider value={uiLanguage}>
     <>
       <Grid
         container
@@ -271,6 +273,7 @@ function App() {
         </DialogActions>
       </Dialog>
     </>
+    </UiLanguageContext.Provider>
   );
 }
 

@@ -1,11 +1,9 @@
 import { Box, ClickAwayListener, Popper, Typography } from "@mui/material";
-import keycodeDescriptions from "../locales/keycodeDescriptions.json";
-import keySettingHints from "../locales/keySettingHints.json";
+import { useContext } from "react";
+import { getKeySettingHint, getStackedHint, KeySettingHintType } from "../locales/keySettingHints";
+import { UiLanguageContext } from "../locales/UiLanguageContext";
 import { describeKeycode } from "./keycodeDescription";
 import { KeycodeConverter, QmkKeycode } from "./keycodes/keycodeConverter";
-
-/** Hint per view; adding an entry to locales/keySettingHints.json extends this union. */
-export type KeySettingHintType = Exclude<keyof typeof keySettingHints, "stacked">;
 
 /**
  * Hint shown when a key is picked with Ctrl. It explains how to set keys in the current view
@@ -13,8 +11,7 @@ export type KeySettingHintType = Exclude<keyof typeof keySettingHints, "stacked"
  * popup: keycodes are chosen from the catalog below, stacked keys can be edited line by line, and
  * keycodes can be dragged onto a key.
  *
- * All texts live in locales/keySettingHints.json and are only authored in Chinese for now, so they
- * are used for every UI language.
+ * Help text follows the selected UI language.
  */
 export function KeySettingHint(props: {
   type: KeySettingHintType;
@@ -25,7 +22,8 @@ export function KeySettingHint(props: {
   boundary: HTMLElement | null;
   onClose?: () => void;
 }) {
-  const hint = keySettingHints[props.type];
+  const language = useContext(UiLanguageContext);
+  const hint = getKeySettingHint(language, props.type);
   // The example refers to the key that was clicked, so it mentions its current keycode (or an empty
   // key): "把当前的 Z 换成 X" / "当前还是空的，点 A 就能把它设成 A".
   const currentLabel = props.keycode.label.trim();
@@ -38,7 +36,7 @@ export function KeySettingHint(props: {
   // Keycodes without a description (plain basic keys) fall back to a generic sentence.
   const fallback = (hint as { fallback?: string }).fallback;
   const description =
-    describeKeycode(props.keycode, props.keycodeconverter) ??
+    describeKeycode(props.keycode, props.keycodeconverter, language) ??
     fallback?.replace(/\{label\}/g, currentLabel || props.keycode.key);
   const holdLegend =
     props.keycode.modNameLabel ?? props.keycode.modLabel ?? props.keycode.holdLabel;
@@ -81,13 +79,13 @@ export function KeySettingHint(props: {
               component="div"
               sx={{ fontSize: "0.8rem", lineHeight: 1.6, mb: 0.5, fontWeight: 500 }}
             >
-              {keycodeDescriptions.labels.function}
+              {language === "zh" ? "功能：" : language === "ja" ? "機能：" : language === "it" ? "Funzione: " : language === "es" ? "Función: " : "Function: "}
               {description}
             </Typography>
           )}
           {holdLegend && (
             <Typography component="div" sx={{ fontSize: "0.78rem", lineHeight: 1.6, mb: 0.5 }}>
-              {keySettingHints.stacked.replace("{hold}", holdLegend)}
+              {getStackedHint(language).replace("{hold}", holdLegend)}
             </Typography>
           )}
           {hint.steps.map((step) => (

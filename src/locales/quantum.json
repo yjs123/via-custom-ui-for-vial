@@ -245,7 +245,10 @@
     "languageNames": {
       "US": "US",
       "zh": "中文",
-      "de": "Deutsch"
+      "de": "DE",
+      "ja": "JP",
+      "it": "IT",
+      "es": "ES"
     }
   },
   "en": {
@@ -495,7 +498,10 @@
     "languageNames": {
       "US": "US",
       "zh": "中文",
-      "de": "Deutsch"
+      "de": "DE",
+      "ja": "JP",
+      "it": "IT",
+      "es": "ES"
     }
   },
   "layoutLanguageTabs": {

@@ -27,7 +27,7 @@ const overlays: Record<Exclude<UiLanguage, "zh" | "en">, DeepPartial<Locale>> = 
     keyPopup: { base: "基本キー（タップ）", hold: "ホールド時のキー", hex: "キーコード（16進数）" },
     dialog: { eraseCustom: "カスタム設定をすべて消去しますか？", eraseQuantum: "QMK設定をすべて消去しますか？", clearBonds: "Bluetoothのペアリングを解除しますか？解除後は再ペアリングが必要です。" },
     toolbar: { load: "読み込み", refreshApp: "アプリを更新", currentLayer: "現在のレイヤー", refreshCurrentLayer: "現在のレイヤーを更新", styleDefault: "標準", styleSculpted: "スカルプト", styleMatrixTester: "キー テスト", themeToDark: "ダークテーマに切り替え", themeToLight: "ライトテーマに切り替え", bleShortcuts: "BLEショートカット", noShortcuts: "ショートカットが見つかりません", batteryBoth: "バッテリー 左 {left}% / 右 {right}%", batteryLoading: "バッテリー残量を取得中", batterySingle: "バッテリー {level}%、レイヤー {layer}", batteryLeft: "左側のバッテリー", batteryRight: "右側のバッテリー", connected: "接続済み", connectedRight: "右側 接続済み", downloadSettings: "設定をダウンロード", uploadSettings: "設定をアップロード", resetKeyboard: "キーボードを再起動", clearBonds: "ペアリングを解除", deviceType: "デバイス", deviceSlave: "スレーブ" },
-    languageNames: { US: "US", zh: "中文", de: "ドイツ語", ja: "日本語", it: "イタリア語", es: "スペイン語" },
+    languageNames: { US: "US", zh: "中文", de: "DE", ja: "JP", it: "IT", es: "ES" },
   },
   it: {
     switchLabel: "中文",
@@ -44,7 +44,7 @@ const overlays: Record<Exclude<UiLanguage, "zh" | "en">, DeepPartial<Locale>> = 
     keyPopup: { base: "Base (tocco)", hold: "Opzione (pressione)", hex: "Codice tasto (hex)" },
     dialog: { eraseCustom: "Eliminare tutte le impostazioni personalizzate?", eraseQuantum: "Eliminare tutte le impostazioni QMK?", clearBonds: "Cancellare l'associazione Bluetooth? Sarà necessario associare di nuovo la tastiera." },
     toolbar: { load: "Carica", refreshApp: "Aggiorna app", currentLayer: "Livello corrente", refreshCurrentLayer: "Aggiorna livello corrente", styleDefault: "Predefinito", styleSculpted: "Scolpito", styleMatrixTester: "Test dei tasti", themeToDark: "Passa al tema scuro", themeToLight: "Passa al tema chiaro", bleShortcuts: "Scorciatoie BLE", noShortcuts: "Nessuna scorciatoia trovata", batteryBoth: "Batteria S {left}% / D {right}%", batteryLoading: "Lettura batteria in corso", batterySingle: "Batteria {level}%, livello {layer}", batteryLeft: "Batteria sinistra", batteryRight: "Batteria destra", connected: "Connesso", connectedRight: "Destro connesso", downloadSettings: "Scarica impostazioni", uploadSettings: "Carica impostazioni", resetKeyboard: "Riavvia", clearBonds: "Rimuovi associazione", deviceType: "Dispositivo", deviceSlave: "Slave" },
-    languageNames: { US: "US", zh: "Cinese", de: "Tedesco", ja: "Giapponese", it: "Italiano", es: "Spagnolo" },
+    languageNames: { US: "US", zh: "中文", de: "DE", ja: "JP", it: "IT", es: "ES" },
   },
   es: {
     switchLabel: "中文",
@@ -61,7 +61,7 @@ const overlays: Record<Exclude<UiLanguage, "zh" | "en">, DeepPartial<Locale>> = 
     keyPopup: { base: "Base (pulsación)", hold: "Opción (mantener)", hex: "Código de tecla (hex)" },
     dialog: { eraseCustom: "¿Borrar todos los ajustes personalizados?", eraseQuantum: "¿Borrar todos los ajustes QMK?", clearBonds: "¿Borrar el emparejamiento Bluetooth? Tendrás que emparejar el teclado de nuevo." },
     toolbar: { load: "Cargar", refreshApp: "Actualizar aplicación", currentLayer: "Capa actual", refreshCurrentLayer: "Actualizar capa actual", styleDefault: "Predeterminado", styleSculpted: "Esculpido", styleMatrixTester: "Prueba de teclas", themeToDark: "Cambiar al tema oscuro", themeToLight: "Cambiar al tema claro", bleShortcuts: "Atajos BLE", noShortcuts: "No se encontraron atajos", batteryBoth: "Batería I {left}% / D {right}%", batteryLoading: "Leyendo batería", batterySingle: "Batería {level}%, capa {layer}", batteryLeft: "Batería izquierda", batteryRight: "Batería derecha", connected: "Conectado", connectedRight: "Derecho conectado", downloadSettings: "Descargar ajustes", uploadSettings: "Subir ajustes", resetKeyboard: "Reiniciar", clearBonds: "Borrar emparejamiento", deviceType: "Dispositivo", deviceSlave: "Esclavo" },
-    languageNames: { US: "US", zh: "Chino", de: "Alemán", ja: "Japonés", it: "Italiano", es: "Español" },
+    languageNames: { US: "US", zh: "中文", de: "DE", ja: "JP", it: "IT", es: "ES" },
   },
 };
 

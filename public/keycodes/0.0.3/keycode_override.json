@@ -355,80 +355,125 @@
   "0xD1": {
     "group": "mouse",
     "key": "KC_MS_BTN1",
-    "label": "Mouse 1",
+    "label": "Left Mouse Button",
     "aliases": [
       "KC_BTN1"
     ],
     "language": {
       "zh": {
-        "label": "鼠标按键1"
+        "label": "鼠标左键"
       },
       "de": {
-        "label": "Maustaste 1"
+        "label": "Linke Maustaste"
+      },
+      "ja": {
+        "label": "マウス左ボタン"
+      },
+      "it": {
+        "label": "Tasto sinistro del mouse"
+      },
+      "es": {
+        "label": "Botón izquierdo del ratón"
       }
     }
   },
   "0xD2": {
     "group": "mouse",
     "key": "KC_MS_BTN2",
-    "label": "Mouse 2",
+    "label": "Right Mouse Button",
     "aliases": [
       "KC_BTN2"
     ],
     "language": {
       "zh": {
-        "label": "鼠标按键2"
+        "label": "鼠标右键"
       },
       "de": {
-        "label": "Maustaste 2"
+        "label": "Rechte Maustaste"
+      },
+      "ja": {
+        "label": "マウス右ボタン"
+      },
+      "it": {
+        "label": "Tasto destro del mouse"
+      },
+      "es": {
+        "label": "Botón derecho del ratón"
       }
     }
   },
   "0xD3": {
     "group": "mouse",
     "key": "KC_MS_BTN3",
-    "label": "Mouse 3",
+    "label": "Middle Mouse Button",
     "aliases": [
       "KC_BTN3"
     ],
     "language": {
       "zh": {
-        "label": "鼠标按键3"
+        "label": "鼠标中键"
       },
       "de": {
-        "label": "Maustaste 3"
+        "label": "Mittlere Maustaste"
+      },
+      "ja": {
+        "label": "マウス中央ボタン"
+      },
+      "it": {
+        "label": "Tasto centrale del mouse"
+      },
+      "es": {
+        "label": "Botón central del ratón"
       }
     }
   },
   "0xD4": {
     "group": "mouse",
     "key": "KC_MS_BTN4",
-    "label": "Mouse 4",
+    "label": "Forward Side Button",
     "aliases": [
       "KC_BTN4"
     ],
     "language": {
       "zh": {
-        "label": "鼠标按键4"
+        "label": "侧键前进"
       },
       "de": {
-        "label": "Maustaste 4"
+        "label": "Seitentaste vorwärts"
+      },
+      "ja": {
+        "label": "サイドボタン前進"
+      },
+      "it": {
+        "label": "Tasto laterale avanti"
+      },
+      "es": {
+        "label": "Botón lateral adelante"
       }
     }
   },
   "0xD5": {
     "group": "mouse",
     "key": "KC_MS_BTN5",
-    "label": "Mouse 5",
+    "label": "Back Side Button",
     "aliases": [
       "KC_BTN5"
     ],
     "language": {
       "zh": {
-        "label": "鼠标按键5"
+        "label": "侧键后退"
       },
       "de": {
-        "label": "Maustaste 5"
+        "label": "Seitentaste zurück"
+      },
+      "ja": {
+        "label": "サイドボタン後退"
+      },
+      "it": {
+        "label": "Tasto laterale indietro"
+      },
+      "es": {
+        "label": "Botón lateral atrás"
       }
     }
   },

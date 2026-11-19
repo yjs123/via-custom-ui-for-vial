@@ -375,8 +375,13 @@ export class KeycodeConverter {
     this.customKeycodes = customKeycodes;
     this.layer = layer;
     this.keycode_range = keycode_range;
-    const languageKey = language.trim().toLocaleLowerCase();
-    const languageKeys = languageKey === "zh" ? [languageKey, "chinese"] : [languageKey];
+    const layoutLanguageKey = language.trim().toLocaleLowerCase();
+    const uiLanguageKey = uiLanguage.trim().toLocaleLowerCase();
+    const languageKeys = [
+      uiLanguageKey,
+      ...(layoutLanguageKey === "zh" ? ["chinese"] : []),
+      layoutLanguageKey,
+    ].filter((key, index, keys) => key !== "" && keys.indexOf(key) === index);
 
     this.tapKeycodeList = Object.entries(keycodes)
       .filter(

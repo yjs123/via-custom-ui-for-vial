@@ -98,6 +98,7 @@ const localizedKeyFunctions: Record<Exclude<UiLanguage, "zh">, Record<string, st
     RGB_TOG: "Toggle RGB lighting.", RGB_MODE_FORWARD: "Select the next RGB effect.", RGB_MODE_REVERSE: "Select the previous RGB effect.",
     RGB_HUI: "Increase RGB hue.", RGB_HUD: "Decrease RGB hue.", RGB_SAI: "Increase RGB saturation.", RGB_SAD: "Decrease RGB saturation.", RGB_VAI: "Increase RGB brightness.", RGB_VAD: "Decrease RGB brightness.",
     KC_SYSTEM_POWER: "Open the system power options.", KC_SYSTEM_SLEEP: "Put the computer to sleep.", KC_SYSTEM_WAKE: "Wake the computer.",
+    KC_MS_BTN1: "Left mouse button.", KC_MS_BTN2: "Right mouse button.", KC_MS_BTN3: "Middle mouse button.", KC_MS_BTN4: "Forward side button.", KC_MS_BTN5: "Back side button.",
   },
   ja: {
     KC_NO: "無効キー：押しても何も出力しません。", KC_TRNS: "透過：次の有効レイヤーの同じ位置にあるキーコードを使います。",
@@ -110,6 +111,7 @@ const localizedKeyFunctions: Record<Exclude<UiLanguage, "zh">, Record<string, st
     RGB_TOG: "RGBライティングを切り替えます。", RGB_MODE_FORWARD: "次のRGB効果に切り替えます。", RGB_MODE_REVERSE: "前のRGB効果に切り替えます。",
     RGB_HUI: "RGBの色相を上げます。", RGB_HUD: "RGBの色相を下げます。", RGB_SAI: "RGBの彩度を上げます。", RGB_SAD: "RGBの彩度を下げます。", RGB_VAI: "RGBの明るさを上げます。", RGB_VAD: "RGBの明るさを下げます。",
     KC_SYSTEM_POWER: "システムの電源メニューを開きます。", KC_SYSTEM_SLEEP: "コンピューターをスリープにします。", KC_SYSTEM_WAKE: "コンピューターをスリープから復帰させます。",
+    KC_MS_BTN1: "左クリック", KC_MS_BTN2: "右クリック", KC_MS_BTN3: "中クリック", KC_MS_BTN4: "進む", KC_MS_BTN5: "戻る",
   },
   it: {
     KC_NO: "Nessuna azione: questo tasto non invia nulla.", KC_TRNS: "Trasparente: usa il codice nella stessa posizione del livello attivo successivo.",
@@ -122,6 +124,7 @@ const localizedKeyFunctions: Record<Exclude<UiLanguage, "zh">, Record<string, st
     RGB_TOG: "Attiva o disattiva l'illuminazione RGB.", RGB_MODE_FORWARD: "Seleziona il prossimo effetto RGB.", RGB_MODE_REVERSE: "Seleziona l'effetto RGB precedente.",
     RGB_HUI: "Aumenta la tonalità RGB.", RGB_HUD: "Diminuisce la tonalità RGB.", RGB_SAI: "Aumenta la saturazione RGB.", RGB_SAD: "Diminuisce la saturazione RGB.", RGB_VAI: "Aumenta la luminosità RGB.", RGB_VAD: "Diminuisce la luminosità RGB.",
     KC_SYSTEM_POWER: "Apre le opzioni di alimentazione del sistema.", KC_SYSTEM_SLEEP: "Sospende il computer.", KC_SYSTEM_WAKE: "Riattiva il computer.",
+    KC_MS_BTN1: "Pulsante sinistro del mouse.", KC_MS_BTN2: "Pulsante destro del mouse.", KC_MS_BTN3: "Pulsante centrale del mouse.", KC_MS_BTN4: "Pulsante laterale avanti.", KC_MS_BTN5: "Pulsante laterale indietro.",
   },
   es: {
     KC_NO: "Sin acción: esta tecla no envía nada.", KC_TRNS: "Transparente: usa el código de la misma posición en la siguiente capa activa.",
@@ -134,6 +137,7 @@ const localizedKeyFunctions: Record<Exclude<UiLanguage, "zh">, Record<string, st
     RGB_TOG: "Activa o desactiva la iluminación RGB.", RGB_MODE_FORWARD: "Selecciona el siguiente efecto RGB.", RGB_MODE_REVERSE: "Selecciona el efecto RGB anterior.",
     RGB_HUI: "Aumenta el tono RGB.", RGB_HUD: "Reduce el tono RGB.", RGB_SAI: "Aumenta la saturación RGB.", RGB_SAD: "Reduce la saturación RGB.", RGB_VAI: "Aumenta el brillo RGB.", RGB_VAD: "Reduce el brillo RGB.",
     KC_SYSTEM_POWER: "Abre las opciones de energía del sistema.", KC_SYSTEM_SLEEP: "Suspende el ordenador.", KC_SYSTEM_WAKE: "Activa el ordenador.",
+    KC_MS_BTN1: "Botón izquierdo del ratón.", KC_MS_BTN2: "Botón derecho del ratón.", KC_MS_BTN3: "Botón central del ratón.", KC_MS_BTN4: "Botón lateral adelante.", KC_MS_BTN5: "Botón lateral atrás.",
   },
   de: {
     KC_NO: "Keine Aktion: Durch Drücken dieser Taste wird nichts gesendet.", KC_TRNS: "Transparent: Verwende den Tastencode an dieser Position auf der nächsten aktiven Ebene.",
@@ -146,6 +150,7 @@ const localizedKeyFunctions: Record<Exclude<UiLanguage, "zh">, Record<string, st
     RGB_TOG: "RGB-Beleuchtung umschalten.", RGB_MODE_FORWARD: "Zum nächsten RGB-Effekt wechseln.", RGB_MODE_REVERSE: "Zum vorherigen RGB-Effekt wechseln.",
     RGB_HUI: "RGB-Farbton erhöhen.", RGB_HUD: "RGB-Farbton verringern.", RGB_SAI: "RGB-Sättigung erhöhen.", RGB_SAD: "RGB-Sättigung verringern.", RGB_VAI: "RGB-Helligkeit erhöhen.", RGB_VAD: "RGB-Helligkeit verringern.",
     KC_SYSTEM_POWER: "Systemenergieoptionen öffnen.", KC_SYSTEM_SLEEP: "Computer in den Ruhezustand versetzen.", KC_SYSTEM_WAKE: "Computer aus dem Ruhezustand aufwecken.",
+    KC_MS_BTN1: "Linke Maustaste.", KC_MS_BTN2: "Rechte Maustaste.", KC_MS_BTN3: "Mittlere Maustaste.", KC_MS_BTN4: "Vorwärts-Taste.", KC_MS_BTN5: "Rückwärts-Taste.",
   },
 };
 

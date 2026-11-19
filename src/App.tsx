@@ -173,7 +173,8 @@ function App() {
                 selectedLanguage === "zh" ||
                   selectedLanguage === "ja" ||
                   selectedLanguage === "it" ||
-                  selectedLanguage === "es"
+                  selectedLanguage === "es" ||
+                  selectedLanguage === "de"
                   ? selectedLanguage
                   : "en",
               );

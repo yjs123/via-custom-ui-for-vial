@@ -64,7 +64,19 @@ const spanish: HintLocale = {
   stacked: "Esta tecla tiene dos partes: la superior, {hold}, es la acción de mantener/modificador; la inferior se envía al pulsar. Haz clic en toda la tecla para editar ambas partes o en la mitad inferior para editar solo la acción de pulsación.",
 };
 
-const locales: Partial<Record<UiLanguage, HintLocale>> = { en: english, ja: japanese, it: italian, es: spanish };
+const german: HintLocale = {
+  hints: {
+    keymap: { title: "So weist du eine Taste zu", steps: ["1. Klicke auf die Taste, die du ändern möchtest. Darunter erscheint die Tastencode-Liste.", "2. Klicke in der Liste auf einen Tastencode, um ihn zuzuweisen.", "3. Du kannst einen Tastencode aus der Liste auch auf eine Taste ziehen."], example: "Beispiel: Ändere {current} in {target}, indem du {target} unter Basis auswählst.", exampleEmpty: "Beispiel: Wähle {target} unter Basis, um diese leere Taste zu belegen." },
+    combos: { title: "So konfigurierst du eine Kombination", steps: ["1. Die ersten vier Felder sind die gemeinsam gedrückten Tasten; Ausgabetaste wird gesendet, wenn die Kombination ausgelöst wird.", "2. Wähle ein Feld und klicke darunter auf den gewünschten Tastencode.", "3. Du kannst bis zu vier Tasten verwenden. Lass ungenutzte Felder leer."], example: "Beispiel: J + K gibt ESC aus: Setze Taste 1 auf J, Taste 2 auf K und Ausgabetaste auf ESC." },
+    tapDance: { title: "So konfigurierst du Mehrfachanschläge", steps: ["1. Wähle ein Feld und klicke darunter auf den gewünschten Tastencode.", "2. Tippen, Halten, Doppeltippen und Tippen-Halten haben jeweils ein eigenes Feld; ungenutzte Felder können leer bleiben.", "3. Die Tippen-Zeit in Millisekunden legt die Grenze zwischen Tippen und Halten fest."], example: "Beispiel: Tippen auf A gibt A aus und Halten gibt Strg aus: Wähle A bei Beim Tippen und LCtrl bei Beim Halten." },
+    keyOverride: { title: "So konfigurierst du eine Tastenüberschreibung", steps: ["1. Eine Überschreibung ersetzt eine Taste (Auslöser) durch einen anderen Tastencode (Ersetzung).", "2. Wähle Auslöser und danach die gedrückte Taste, zum Beispiel CapsLock.", "3. Wähle Ersetzung und danach die Ausgabetaste, zum Beispiel LCtrl. Lege fest, auf welchen Ebenen sie gilt."], example: "Beispiel: Mache CapsLock zu Strg, indem du CapsLock als Auslöser und LCtrl als Ersetzung festlegst." },
+    altRepeatKey: { title: "So konfigurierst du eine alternative Wiederholungstaste", steps: ["1. Letzte Taste ist die Taste, die du drückst; Alternative Taste wird stattdessen gesendet, wenn du sie wiederholst.", "2. Wähle Letzte Taste und danach eine Taste, zum Beispiel Rücktaste.", "3. Wähle Alternative Taste und danach die Ersatztaste, zum Beispiel Entfernen."], example: "Beispiel: Beim Wiederholen von Rücktaste wird Entfernen gesendet. Setze Letzte Taste auf Rücktaste und Alternative Taste auf Entfernen." },
+    keycode: { title: "Was bewirkt dieser Tastencode?", steps: [], example: "", fallback: "Durch Drücken dieser Taste wird {label} gesendet." },
+  },
+  stacked: "Diese Taste hat zwei Teile: Die obere Taste, {hold}, ist die Halte-/Modifikatorfunktion; die untere Taste wird beim Tippen gesendet. Klicke auf die gesamte Taste, um beide Teile zu bearbeiten, oder auf die untere Hälfte, um nur die Tippenfunktion zu bearbeiten.",
+};
+
+const locales: Partial<Record<UiLanguage, HintLocale>> = { en: english, de: german, ja: japanese, it: italian, es: spanish };
 
 export function getKeySettingHint(language: UiLanguage, type: KeySettingHintType): HintText {
   return language === "zh" ? chineseHints[type] : locales[language]!.hints[type];
@@ -123,6 +135,18 @@ const localizedKeyFunctions: Record<Exclude<UiLanguage, "zh">, Record<string, st
     RGB_HUI: "Aumenta el tono RGB.", RGB_HUD: "Reduce el tono RGB.", RGB_SAI: "Aumenta la saturación RGB.", RGB_SAD: "Reduce la saturación RGB.", RGB_VAI: "Aumenta el brillo RGB.", RGB_VAD: "Reduce el brillo RGB.",
     KC_SYSTEM_POWER: "Abre las opciones de energía del sistema.", KC_SYSTEM_SLEEP: "Suspende el ordenador.", KC_SYSTEM_WAKE: "Activa el ordenador.",
   },
+  de: {
+    KC_NO: "Keine Aktion: Durch Drücken dieser Taste wird nichts gesendet.", KC_TRNS: "Transparent: Verwende den Tastencode an dieser Position auf der nächsten aktiven Ebene.",
+    MO: "Momentane Ebene: Ebene {layer} aktivieren, solange gehalten wird, danach zur vorherigen Ebene zurückkehren.", TO: "Ebene wechseln: Auf Ebene {layer} bleiben, bis eine andere Ebene ausgewählt wird.",
+    TG: "Ebene umschalten: Bei jedem Drücken zwischen Ebene {layer} und der vorherigen Ebene wechseln.", DF: "Standardebene: Ebene {layer} zur Standardebene machen.",
+    OSL: "Einmal-Ebene: Ebene {layer} für den nächsten Tastendruck aktivieren.", TT: "Tippen, um Ebene {layer} umzuschalten; halten, um sie vorübergehend zu aktivieren.",
+    LT: "Halten, um Ebene {layer} zu aktivieren; tippen, um {base} zu senden.", LM: "Halten, um Ebene {layer} und Modifikator {mod} zu aktivieren.",
+    MODS: "Drücke {mod} und {base} gemeinsam.", MOD_TAP: "Halten für {mod}; tippen für {base}.", OSM: "Einmal-Modifikator: Wende {mod} auf den nächsten Tastendruck an.",
+    TD: "Mehrfachanschlag {index} auslösen.", MACRO: "Makro {index} ausführen.", custom: "Benutzerdefinierter Tastencode: {label}.",
+    RGB_TOG: "RGB-Beleuchtung umschalten.", RGB_MODE_FORWARD: "Zum nächsten RGB-Effekt wechseln.", RGB_MODE_REVERSE: "Zum vorherigen RGB-Effekt wechseln.",
+    RGB_HUI: "RGB-Farbton erhöhen.", RGB_HUD: "RGB-Farbton verringern.", RGB_SAI: "RGB-Sättigung erhöhen.", RGB_SAD: "RGB-Sättigung verringern.", RGB_VAI: "RGB-Helligkeit erhöhen.", RGB_VAD: "RGB-Helligkeit verringern.",
+    KC_SYSTEM_POWER: "Systemenergieoptionen öffnen.", KC_SYSTEM_SLEEP: "Computer in den Ruhezustand versetzen.", KC_SYSTEM_WAKE: "Computer aus dem Ruhezustand aufwecken.",
+  },
 };
 
 export function getLocalizedKeyFunction(
@@ -134,7 +158,7 @@ export function getLocalizedKeyFunction(
   const templates = localizedKeyFunctions[language];
   const template = templates[name] ?? localizedFamilyTemplate(language, name);
   if (!template) {
-    const unknown = { en: "Keycode: {key}.", ja: "キーコード：{key}。", it: "Codice tasto: {key}.", es: "Código de tecla: {key}." };
+    const unknown = { en: "Keycode: {key}.", de: "Tastencode: {key}.", ja: "キーコード：{key}。", it: "Codice tasto: {key}.", es: "Código de tecla: {key}." };
     return unknown[language].replace("{key}", String(values.key ?? name));
   }
   return template.replace(/\{(\w+)\}/g, (placeholder, key: string) =>
@@ -145,11 +169,11 @@ export function getLocalizedKeyFunction(
 function localizedFamilyTemplate(language: Exclude<UiLanguage, "zh">, name: string) {
   const suffix = name.replace(/^QK_MIDI_/, "").replace(/_SHARP/g, "#").replace(/_/g, " ");
   if (name.startsWith("QK_MIDI_NOTE_")) {
-    return { en: "MIDI note: send {value}.", ja: "MIDIノート：{value}を送信します。", it: "Nota MIDI: invia {value}.", es: "Nota MIDI: envía {value}." }[language].replace("{value}", suffix.slice("NOTE ".length));
+    return { en: "MIDI note: send {value}.", de: "MIDI-Note: sende {value}.", ja: "MIDIノート：{value}を送信します。", it: "Nota MIDI: invia {value}.", es: "Nota MIDI: envía {value}." }[language].replace("{value}", suffix.slice("NOTE ".length));
   }
-  if (name.startsWith("QK_MIDI_VELOCITY_")) return { en: "MIDI: set velocity to {value}.", ja: "MIDI：ベロシティを{value}に設定します。", it: "MIDI: imposta la velocity su {value}.", es: "MIDI: establece la velocidad en {value}." }[language].replace("{value}", name.slice("QK_MIDI_VELOCITY_".length));
-  if (name.startsWith("QK_MIDI_CHANNEL_")) return { en: "MIDI: select channel {value}.", ja: "MIDI：チャンネル{value}に切り替えます。", it: "MIDI: seleziona il canale {value}.", es: "MIDI: selecciona el canal {value}." }[language].replace("{value}", name.slice("QK_MIDI_CHANNEL_".length));
-  if (name.startsWith("QK_MIDI_TRANSPOSE_")) return { en: "MIDI: transpose by {value} semitones.", ja: "MIDI：{value}半音移調します。", it: "MIDI: trasponi di {value} semitoni.", es: "MIDI: transpone {value} semitonos." }[language].replace("{value}", name.slice("QK_MIDI_TRANSPOSE_".length));
-  if (name.startsWith("QK_MIDI_")) return { en: "MIDI control: {value}.", ja: "MIDIコントロール：{value}。", it: "Controllo MIDI: {value}.", es: "Control MIDI: {value}." }[language].replace("{value}", suffix.slice("MIDI ".length));
+  if (name.startsWith("QK_MIDI_VELOCITY_")) return { en: "MIDI: set velocity to {value}.", de: "MIDI: Anschlagsdynamik auf {value} setzen.", ja: "MIDI：ベロシティを{value}に設定します。", it: "MIDI: imposta la velocity su {value}.", es: "MIDI: establece la velocidad en {value}." }[language].replace("{value}", name.slice("QK_MIDI_VELOCITY_".length));
+  if (name.startsWith("QK_MIDI_CHANNEL_")) return { en: "MIDI: select channel {value}.", de: "MIDI: Kanal {value} auswählen.", ja: "MIDI：チャンネル{value}に切り替えます。", it: "MIDI: seleziona il canale {value}.", es: "MIDI: selecciona el canal {value}." }[language].replace("{value}", name.slice("QK_MIDI_CHANNEL_".length));
+  if (name.startsWith("QK_MIDI_TRANSPOSE_")) return { en: "MIDI: transpose by {value} semitones.", de: "MIDI: um {value} Halbtöne transponieren.", ja: "MIDI：{value}半音移調します。", it: "MIDI: trasponi di {value} semitoni.", es: "MIDI: transpone {value} semitonos." }[language].replace("{value}", name.slice("QK_MIDI_TRANSPOSE_".length));
+  if (name.startsWith("QK_MIDI_")) return { en: "MIDI control: {value}.", de: "MIDI-Steuerung: {value}.", ja: "MIDIコントロール：{value}。", it: "Controllo MIDI: {value}.", es: "Control MIDI: {value}." }[language].replace("{value}", suffix.slice("MIDI ".length));
   return undefined;
 }

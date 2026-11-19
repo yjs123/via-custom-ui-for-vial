@@ -79,7 +79,7 @@ export function KeySettingHint(props: {
               component="div"
               sx={{ fontSize: "0.8rem", lineHeight: 1.6, mb: 0.5, fontWeight: 500 }}
             >
-              {language === "zh" ? "功能：" : language === "ja" ? "機能：" : language === "it" ? "Funzione: " : language === "es" ? "Función: " : "Function: "}
+              {language === "zh" ? "功能：" : language === "ja" ? "機能：" : language === "it" ? "Funzione: " : language === "es" ? "Función: " : language === "de" ? "Funktion: " : "Function: "}
               {description}
             </Typography>
           )}

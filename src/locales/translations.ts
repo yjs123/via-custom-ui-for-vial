@@ -1,6 +1,6 @@
 import source from "./quantum.json";
 
-export type UiLanguage = "zh" | "en" | "ja" | "it" | "es";
+export type UiLanguage = "zh" | "en" | "de" | "ja" | "it" | "es";
 
 type Locale = Omit<typeof source.en, "languageNames"> & {
   languageNames: Record<string, string>;
@@ -63,6 +63,23 @@ const overlays: Record<Exclude<UiLanguage, "zh" | "en">, DeepPartial<Locale>> = 
     toolbar: { load: "Cargar", refreshApp: "Actualizar aplicación", currentLayer: "Capa actual", refreshCurrentLayer: "Actualizar capa actual", styleDefault: "Predeterminado", styleSculpted: "Esculpido", styleMatrixTester: "Prueba de teclas", themeToDark: "Cambiar al tema oscuro", themeToLight: "Cambiar al tema claro", bleShortcuts: "Atajos BLE", noShortcuts: "No se encontraron atajos", batteryBoth: "Batería I {left}% / D {right}%", batteryLoading: "Leyendo batería", batterySingle: "Batería {level}%, capa {layer}", batteryLeft: "Batería izquierda", batteryRight: "Batería derecha", connected: "Conectado", connectedRight: "Derecho conectado", downloadSettings: "Descargar ajustes", uploadSettings: "Subir ajustes", resetKeyboard: "Reiniciar", clearBonds: "Borrar emparejamiento", deviceType: "Dispositivo", deviceSlave: "Esclavo" },
     languageNames: { US: "US", zh: "中文", de: "DE", ja: "JP", it: "IT", es: "ES" },
   },
+  de: {
+    switchLabel: "中文",
+    common: { save: "Speichern", undo: "Rückgängig", reset: "Zurücksetzen", revert: "Wiederherstellen", cancel: "Abbrechen", ok: "OK", enableAll: "Alle aktivieren", disableAll: "Alle deaktivieren" },
+    keycodeTabs: { Basic: "Basis", Mouse: "Maus", UserWireless: "Benutzer", Media: "Medien", Quantum: "Quantum", RGB: "RGB", Layer: "Ebene", Macro: "Makro", TapDance: "Mehrfachanschläge", Combos: "Kombinationen", KeyOverride: "Tastenüberschreibungen", AltRepeatKey: "Alt-Wiederholungstaste" },
+    tabs: { Keymap: "Tastaturbelegung", Macro: "Makro", Lighting: "Beleuchtung", TapDance: "Mehrfachanschläge", Combos: "Kombinationen", KeyOverride: "Tastenüberschreibungen", AltRepeatKey: "Alt-Wiederholungstaste", MatrixTester: "Tastentest", Magic: "Magic", "Grave Escape": "Grave Escape", "Tap-Hold": "Tippen-Halten", "Auto Shift": "Auto-Shift", Combo: "Kombination", "One Shot Keys": "Einmal-Tasten", "Mouse Keys": "Maustasten", Quantum: "QMK-Einstellungen" },
+    lighting: { effect: "RGB-Effekt", color: "RGB-Farbe", brightness: "RGB-Helligkeit", speed: "RGB-Geschwindigkeit", chooseColor: "RGB-Farbe auswählen", notSupported: "Beleuchtung wird in der Vial-Tastaturdefinition nicht unterstützt." },
+    colorPicker: { basicColors: "Grundfarben", hex: "HEX", hue: "Farbton", red: "Rot", saturation: "Sättigung", green: "Grün", value: "Helligkeit", blue: "Blau", cancel: "Abbrechen", ok: "OK" },
+    tapDance: { onTap: "Beim Tippen", onHold: "Beim Halten", onDoubleTap: "Beim Doppeltippen", onTapHold: "Tippen und halten", tappingTerm: "Tippen-Zeit [ms]" },
+    combos: { keys: ["Taste 1", "Taste 2", "Taste 3", "Taste 4", "Ausgabetaste"] },
+    keyOverride: { enable: "Aktivieren", enableOnLayers: "Auf Ebenen aktivieren", enableAll: "Alle aktivieren", disableAll: "Alle deaktivieren", trigger: "Auslösertaste", triggerMods: "Auslöse-Modifikatoren", negativeMods: "Ausgeschlossene Modifikatoren", suppressedMods: "Unterdrückte Modifikatoren", replacement: "Ersetzungstaste", options: "Optionen", optionLabels: ["Beim Drücken der Auslösertaste aktivieren", "Beim Drücken eines erforderlichen Modifikators aktivieren", "Beim Loslassen eines ausgeschlossenen Modifikators aktivieren", "Bei genau einem Modifikator aktivieren", "Auslösertaste nach Deaktivierung der Überschreibung nicht erneut senden", "Beim Drücken einer anderen Taste nicht deaktivieren"] },
+    altRepeatKey: { enable: "Aktivieren", lastKey: "Letzte Taste", altKey: "Alternative Taste", allowedMods: "Erlaubte Modifikatoren", options: "Optionen", optionLabels: ["Diese alternative Taste als Standard verwenden", "Bidirektional", "Unterschied zwischen linker und rechter Modifikatortaste ignorieren"] },
+    macro: { title: "Makro M bearbeiten", addText: "+TEXT", addTap: "+TIPPE", addDown: "+DRÜCKEN", addUp: "+LASSEN", addDelay: "+VERZÖGERUNG", delay: "Verzögerung [ms]", tap: "Tippen", down: "Drücken", up: "Lassen", revert: "Wiederherstellen", save: "Speichern", none: "Keine Makros verfügbar." },
+    keyPopup: { base: "Basistaste (Tippen)", hold: "Haltefunktion", hex: "Tastencode (Hex)" },
+    dialog: { eraseCustom: "Alle benutzerdefinierten Einstellungen löschen?", eraseQuantum: "Alle QMK-Einstellungen löschen?", clearBonds: "Bluetooth-Paarungen löschen? Danach muss die Tastatur neu gekoppelt werden." },
+    toolbar: { load: "Laden", refreshApp: "Anwendung aktualisieren", currentLayer: "Aktuelle Ebene", refreshCurrentLayer: "Aktuelle Ebene aktualisieren", styleDefault: "Standard", styleSculpted: "Geformt", styleMatrixTester: "Tastentest", themeToDark: "Zum dunklen Thema wechseln", themeToLight: "Zum hellen Thema wechseln", bleShortcuts: "BLE-Tastenkürzel", noShortcuts: "Keine Tastenkürzel gefunden", batteryBoth: "Batterie links {left}% / rechts {right}%", batteryLoading: "Batteriestand wird gelesen", batterySingle: "Batterie {level}%, Ebene {layer}", batteryLeft: "Linke Batterie", batteryRight: "Rechte Batterie", connected: "Verbunden", connectedRight: "Rechte Seite verbunden", downloadSettings: "Einstellungen herunterladen", uploadSettings: "Einstellungen hochladen", resetKeyboard: "Tastatur neu starten", clearBonds: "Paarungen löschen", deviceType: "Gerät", deviceSlave: "Slave" },
+    languageNames: { US: "US", zh: "中文", de: "DE", ja: "JP", it: "IT", es: "ES" },
+  },
 };
 
 function mergeLocale(base: Locale, overlay: DeepPartial<Locale>): Locale {
@@ -85,6 +102,7 @@ function mergeLocale(base: Locale, overlay: DeepPartial<Locale>): Locale {
 
 export const quantumTranslations: typeof source & Record<UiLanguage, Locale> = {
   ...source,
+  de: mergeLocale(source.en, overlays.de),
   ja: mergeLocale(source.en, overlays.ja),
   it: mergeLocale(source.en, overlays.it),
   es: mergeLocale(source.en, overlays.es),

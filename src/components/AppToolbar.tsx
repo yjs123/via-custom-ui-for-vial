@@ -249,34 +249,7 @@ export function AppToolbar(props: AppToolbarProps) {
               size="small"
               value={props.keymapStyle}
               onChange={(event) => props.onKeymapStyleChange(event.target.value as KeymapStyle)}
-              sx={{
-                minWidth: 140,
-                height: 32,
-                fontSize: "11px",
-                color: "#e2e8f0",
-                background: "rgba(15, 23, 42, 0.85)",
-                borderRadius: 1.5,
-                "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "rgba(148, 163, 184, 0.28)",
-                },
-                "&:hover .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "rgba(148, 163, 184, 0.45)",
-                },
-                "& .MuiSelect-select": {
-                  py: 0.5,
-                  pr: 2,
-                },
-              }}
-              MenuProps={{
-                PaperProps: {
-                  sx: {
-                    background: "#0f172a",
-                    color: "#e2e8f0",
-                    border: "1px solid rgba(148, 163, 184, 0.2)",
-                    mt: 0.5,
-                  },
-                },
-              }}
+              sx={{ display: "none" }}
             >
               <MenuItem value="classic" sx={{ fontSize: "11px" }}>
                 {t.styleDefault}

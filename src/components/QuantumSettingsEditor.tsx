@@ -65,7 +65,7 @@ export function QuantumSettingsEditor(props: {
       : []),
   ];
   const visibleTabs = tabs.filter(
-    (menu) => !["KeyOverride", "AltRepeatKey", "Quantum"].includes(menu.id),
+    (menu) => !["Lighting", "KeyOverride", "AltRepeatKey", "Quantum"].includes(menu.id),
   );
 
   useEffect(() => {

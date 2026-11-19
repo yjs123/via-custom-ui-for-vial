@@ -649,6 +649,7 @@ export function KeycodeCatalog(props: {
                       .filter(
                         (keycode) =>
                           keycode.group === keygroup &&
+                          !(keygroup === "media" && HIDDEN_MEDIA_KEYCODES.has(keycode.key)) &&
                           (keygroup !== "layer" ||
                             (keycode.key.startsWith("To Layer ") ||
                               (keycode.key.startsWith("Momentary Layer ") &&
@@ -797,3 +798,23 @@ export function KeycodeCatalog(props: {
     <KeySettingHintAreaContext.Provider value={hintAreaId}>{content}</KeySettingHintAreaContext.Provider>
   );
 }
+
+const HIDDEN_MEDIA_KEYCODES = new Set([
+  "KC_EXECUTE",
+  "KC_HELP",
+  "KC_SELECT",
+  "KC_STOP",
+  "KC_AGAIN",
+  "KC_UNDO",
+  "KC_CUT",
+  "KC_COPY",
+  "KC_PASTE",
+  "KC_KB_MUTE",
+  "KC_KB_VOLUME_UP",
+  "KC_KB_VOLUME_DOWN",
+  "KC_AUDIO_MUTE",
+  "KC_AUDIO_VOL_UP",
+  "KC_AUDIO_VOL_DOWN",
+  "KC_MEDIA_STOP",
+  "KC_MEDIA_SELECT",
+]);

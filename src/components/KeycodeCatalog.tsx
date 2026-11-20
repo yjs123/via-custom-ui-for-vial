@@ -418,16 +418,72 @@ function QuantumCatalogTab(props: {
   onKeycodeSelect?: (keycode: QmkKeycode) => void;
 }) {
   const templateRows = props.keycodeConverter.getQuantumTemplateRows();
+  const visibleTopTemplateNames = new Set([
+    "QK_GRAVE_ESCAPE",
+    "QK_GESC",
+    "KC_GESC",
+    "QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN",
+    "SC_LSPO",
+    "KC_LSPO",
+    "QK_SPACE_CADET_RIGHT_SHIFT_PARENTHESIS_CLOSE",
+    "SC_RSPC",
+    "KC_RSPC",
+  ]);
+  const visibleModifierLabels = new Set([
+    "LSft",
+    "LCtl",
+    "LAlt",
+    "LGui",
+    "RSft",
+    "RCtl",
+    "RAlt",
+    "RGui",
+    "C_S",
+    "LCA",
+    "LCG",
+    "RCG",
+    "LSA",
+    "LSG",
+    "LCAG",
+    "MEH",
+    "HYPR",
+  ]);
+  const visibleTemplateRows = templateRows
+    .map((row, rowIndex) =>
+      row.filter((keycap) => {
+        if (rowIndex === 0) {
+          return (
+            visibleTopTemplateNames.has(keycap.keycode.key) ||
+            keycap.keycode.aliases?.some((alias) => visibleTopTemplateNames.has(alias)) === true
+          );
+        }
+        return rowIndex === 2 && visibleModifierLabels.has(keycap.keycode.modLabel ?? "");
+      }),
+    )
+    .filter((row) => row.length > 0);
+  const visibleQuantumKeycodes = new Set([
+    "QK_BOOTLOADER",
+    "QK_REBOOT",
+    "QK_CLEAR_EEPROM",
+    "QK_MAGIC_GUI_ON",
+    "QK_MAGIC_GUI_OFF",
+    "QK_MAGIC_NKRO_ON",
+    "QK_MAGIC_NKRO_OFF",
+    "QK_MAGIC_TOGGLE_NKRO",
+  ]);
   const templateValues = new Set(templateRows.flat().map((keycap) => keycap.keycode.value));
   const keycodes = props.keygroups
     .flatMap((keygroup) =>
       props.keycodeConverter.getTapKeycodeList().filter((keycode) => keycode.group === keygroup),
     )
-    .filter((keycode) => !templateValues.has(keycode.value));
+    .filter(
+      (keycode) =>
+        !templateValues.has(keycode.value) && visibleQuantumKeycodes.has(keycode.key),
+    );
 
   return (
     <>
-      <QuantumModifiersLayout rows={templateRows} onKeycodeSelect={props.onKeycodeSelect} />
+      <QuantumModifiersLayout rows={visibleTemplateRows} onKeycodeSelect={props.onKeycodeSelect} />
       <Box
         className="keycode-group"
         sx={{

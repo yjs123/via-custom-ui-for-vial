@@ -195,6 +195,7 @@ fn hid_battery_probe(
     })
 }
 
+#[cfg(target_os = "windows")]
 #[tauri::command]
 async fn battery_get_level(device_name: String) -> Result<Option<u8>, String> {
     let requested_name = device_name.trim().to_ascii_lowercase();
@@ -234,6 +235,11 @@ async fn battery_get_level(device_name: String) -> Result<Option<u8>, String> {
     Ok(None)
 }
 
+#[cfg(not(target_os = "windows"))]
+#[tauri::command]
+async fn battery_get_level(_device_name: String) -> Result<Option<u8>, String> {
+    Err("Battery level detection is only supported on Windows".to_string())
+}
 fn new_hidapi() -> HidApi {
     HidApi::new().expect("Failed to create `HidApi`")
 }

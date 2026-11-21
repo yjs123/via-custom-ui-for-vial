@@ -1,29 +1,37 @@
-name: Build macOS application
+name: Build macOS Universal Application
 
 on:
   workflow_dispatch:
-
-permissions:
-  contents: read
-
-concurrency:
-  group: macos-build-${{ github.ref }}
-  cancel-in-progress: false
+  push:
+    branches: ['cmkb5']
 
 jobs:
-  build-macos:
+  build-macos-universal:
     runs-on: macos-latest
+    
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 24
-      - uses: dtolnay/rust-toolchain@stable
-      - run: npm install --global yarn@1.22.22
-      - run: yarn install --frozen-lockfile
-      - run: npx tauri build
-      - uses: actions/upload-artifact@v6
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Rust toolchain (with both macOS targets)
+        uses: dtolnay/rust-toolchain@stable
         with:
-          name: via-custom-ui-for-vial-macos
-          path: src-tauri/target/release/bundle/
-          if-no-files-found: error
+          targets: aarch64-apple-darwin,x86_64-apple-darwin
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build Tauri app (Universal Binary)
+        run: npm run tauri build -- --target universal-apple-darwin
+
+      - name: Upload Universal DMG/APP
+        uses: actions/upload-artifact@v4
+        with:
+          name: CMKB-macos-universal
+          path: src-tauri/target/universal-apple-darwin/release/bundle/**/*

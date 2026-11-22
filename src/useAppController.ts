@@ -289,7 +289,7 @@ export function useAppController() {
       setLoading(true);
       downloadData(
         JSON.stringify(await VialKeyboardGetAllConfig(via, vialJson, dynamicEntryCount), (_key, value) => typeof value === "bigint" ? value.toString() : value, 4),
-        `${kbName}-vial-setting.json`,
+        `${kbName || "setting"}.json`,
       );
     } finally {
       setLoading(false);

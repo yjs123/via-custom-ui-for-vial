@@ -243,6 +243,19 @@ export function AppToolbar(props: AppToolbarProps) {
           whiteSpace: "nowrap",
         }}
       >
+        <Tooltip title="使用教程">
+          <IconButton
+            className="vial-action-button"
+            component="a"
+            href={`${import.meta.env.BASE_URL}documents/${encodeURIComponent("CMKB键盘使用指南.docx")}`}
+            download
+            size="small"
+            aria-label="下载使用教程"
+            sx={{ p: 0.5 }}
+          >
+            <DownloadIcon sx={{ fontSize: 18 }} />
+          </IconButton>
+        </Tooltip>
         {!isSlaveDevice && (
           <>
             <Select

@@ -1,4 +1,4 @@
-import { ArrowDownward, ArrowUpward, Delete } from "@mui/icons-material";
+import { ArrowDownward, ArrowUpward, Delete, FiberManualRecord, Stop } from "@mui/icons-material";
 import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { ViaKeyboard } from "../services/vialKeyboad";
@@ -149,6 +149,94 @@ function MacroEntry(props: {
   const t = quantumTranslations[props.language ?? "en"];
   const [actions, setActions] = useState<number[][]>([[]]);
   const [focusedAction, setFocusedAction] = useState<number | null>(null);
+  const [recording, setRecording] = useState(false);
+  const heldKeys = useRef(new Map<string, number>());
+  const lastRecordedAt = useRef<number | null>(null);
+
+  const appendRecordedKey = (action: number[]) => {
+    const now = performance.now();
+    const previous = lastRecordedAt.current;
+    lastRecordedAt.current = now;
+    setActions((current) => {
+      const next = [...current];
+      if (previous !== null) {
+        let delay = Math.round(now - previous);
+        while (delay > 0) {
+          const chunk = Math.min(delay, 64769);
+          next.push([1, 4, chunk]);
+          delay -= chunk;
+        }
+      }
+      next.push(action);
+      return next;
+    });
+  };
+
+  const stopRecording = () => {
+    const releases = [...heldKeys.current.entries()].map(([, keycode]) => [1, 3, keycode]);
+    heldKeys.current.clear();
+    lastRecordedAt.current = null;
+    setRecording(false);
+    if (releases.length) setActions((current) => [...current, ...releases]);
+  };
+
+  useEffect(() => {
+    if (!recording) return;
+
+    const keycodeNames: Record<string, string> = {
+      Escape: "KC_ESCAPE", Enter: "KC_ENTER", NumpadEnter: "KC_KP_ENTER", Tab: "KC_TAB",
+      Space: "KC_SPACE", Backspace: "KC_BACKSPACE", Delete: "KC_DELETE", Insert: "KC_INSERT",
+      Home: "KC_HOME", End: "KC_END", PageUp: "KC_PAGE_UP", PageDown: "KC_PAGE_DOWN",
+      ArrowLeft: "KC_LEFT", ArrowRight: "KC_RIGHT", ArrowUp: "KC_UP", ArrowDown: "KC_DOWN",
+      CapsLock: "KC_CAPS_LOCK", PrintScreen: "KC_PSCREEN", ScrollLock: "KC_SCROLLLOCK", Pause: "KC_PAUSE",
+      Minus: "KC_MINUS", Equal: "KC_EQUAL", BracketLeft: "KC_LEFT_BRACKET", BracketRight: "KC_RIGHT_BRACKET",
+      Backslash: "KC_BACKSLASH", Semicolon: "KC_SEMICOLON", Quote: "KC_QUOTE",
+      Backquote: "KC_GRAVE", Comma: "KC_COMMA", Period: "KC_DOT", Slash: "KC_SLASH",
+      NumpadDivide: "KC_KP_SLASH", NumpadMultiply: "KC_KP_ASTERISK", NumpadSubtract: "KC_KP_MINUS",
+      NumpadAdd: "KC_KP_PLUS", NumpadDecimal: "KC_KP_DOT", NumLock: "KC_NUM_LOCK",
+      ShiftLeft: "KC_LEFT_SHIFT", ShiftRight: "KC_RIGHT_SHIFT", ControlLeft: "KC_LEFT_CTRL", ControlRight: "KC_RIGHT_CTRL",
+      AltLeft: "KC_LEFT_ALT", AltRight: "KC_RIGHT_ALT", MetaLeft: "KC_LEFT_GUI", MetaRight: "KC_RIGHT_GUI",
+      ContextMenu: "KC_MENU",
+    };
+    const toKeycode = (code: string) => {
+      const name = keycodeNames[code] ??
+        (/^Key[A-Z]$/.test(code) ? `KC_${code.slice(3)}` :
+          /^Digit[0-9]$/.test(code) ? `KC_${code.slice(5)}` :
+            /^F([1-9]|1[0-2])$/.test(code) ? `KC_${code}` :
+              /^Numpad[0-9]$/.test(code) ? `KC_KP_${code.slice(6)}` : undefined);
+      return name === undefined
+        ? undefined
+        : props.keycodeConverter.getTapKeycodeList().find(
+            (keycode) => keycode.key === name || keycode.aliases?.includes(name),
+          )?.value;
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      const keycode = toKeycode(event.code);
+      if (keycode === undefined) return;
+      event.preventDefault();
+      if (event.repeat || heldKeys.current.has(event.code)) return;
+      heldKeys.current.set(event.code, keycode);
+      appendRecordedKey([1, 2, keycode]);
+    };
+    const onKeyUp = (event: KeyboardEvent) => {
+      const keycode = heldKeys.current.get(event.code);
+      if (keycode === undefined) return;
+      event.preventDefault();
+      heldKeys.current.delete(event.code);
+      appendRecordedKey([1, 3, keycode]);
+    };
+    const onWindowBlur = () => stopRecording();
+
+    window.addEventListener("keydown", onKeyDown, true);
+    window.addEventListener("keyup", onKeyUp, true);
+    window.addEventListener("blur", onWindowBlur);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown, true);
+      window.removeEventListener("keyup", onKeyUp, true);
+      window.removeEventListener("blur", onWindowBlur);
+    };
+  }, [recording, props.keycodeConverter]);
 
   useEffect(() => {
     setActions(getActions(props.buffer));
@@ -191,6 +279,23 @@ function MacroEntry(props: {
 
   return (
     <>
+      <div>
+        <Button
+          color={recording ? "error" : "primary"}
+          startIcon={recording ? <Stop /> : <FiberManualRecord />}
+          onClick={() => {
+            if (recording) {
+              stopRecording();
+            } else {
+              heldKeys.current.clear();
+              lastRecordedAt.current = null;
+              setRecording(true);
+            }
+          }}
+        >
+          {recording ? t.macro.stopRecording : t.macro.startRecording}
+        </Button>
+      </div>
       {actions.map((action, idx) => {
         return (
           <Stack key={idx} className="macro-entry-row" direction={"row"} mt={0.5}>
@@ -316,7 +421,7 @@ function MacroEntry(props: {
       </div>
       <div>
         <Button onClick={() => setActions(getActions(props.buffer))}>{t.macro.revert}</Button>
-        <Button onClick={() => props.onSave(actions)} variant="outlined">
+        <Button disabled={recording} onClick={() => props.onSave(actions)} variant="outlined">
           {t.macro.save}
         </Button>
       </div>

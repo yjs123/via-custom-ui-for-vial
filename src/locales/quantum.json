@@ -202,6 +202,8 @@
       "tap": "单击",
       "down": "按下",
       "up": "抬起",
+      "startRecording": "开始录制",
+      "stopRecording": "停止录制",
       "revert": "还原",
       "save": "保存",
       "none": "没有可用的宏"
@@ -454,6 +456,8 @@
       "tap": "Tap",
       "down": "Down",
       "up": "Up",
+      "startRecording": "Start recording",
+      "stopRecording": "Stop recording",
       "revert": "Revert",
       "save": "Save",
       "none": "No macros available."

@@ -164,6 +164,9 @@ body:not(.theme-light) .battery-meter-fill {
 .app-shell:not(.theme-light) .macro-tab-panel {
   min-height: calc(100vh - 100px) !important;
   height: calc(100vh - 100px) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  scrollbar-width: thin;
 }
 
 .app-shell:not(.theme-light) .keymap-tab-panel {
